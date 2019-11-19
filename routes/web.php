@@ -11,8 +11,8 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/', function () {
+    return view('welcome');
+});
 Route::get('tim-kiem', ['as' => 'search.index', 'uses' => 'SearchController@index']);
 Route::get('/search/real', 'SearchController@ajaxSearch');
