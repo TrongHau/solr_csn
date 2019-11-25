@@ -78,10 +78,10 @@ class SearchController extends Controller
                 $searchSolarium = [];
                 //$searchSolarium['music_title_charset_nospace'] = $charsetNoSpace .'^1000';
 //                if ($quickSearch) {
-                $searchSolarium['music_title_charset_nospace'] = $charsetNoSpace . '^500';
-                $searchSolarium['music_title_artist_charset_nospace'] = $charsetNoSpace . '^100 | music_title_artist_charset_nospace:' . $charsetNoSpace . '*^50';
+                    $searchSolarium['music_title_charset_nospace'] = $charsetNoSpace . '^500';
+                    $searchSolarium['music_title_artist_charset_nospace'] = $charsetNoSpace . '^100 | music_title_artist_charset_nospace:' . $charsetNoSpace . '*^50';
 //                }
-                //            $searchSolarium['music_title_artist_charset'] = $titleCharset;
+    //            $searchSolarium['music_title_artist_charset'] = $titleCharset;
 //                if(isset($request->playback) || 1 == 1) {
 //                    foreach ($searchSolarium as $key => $item) {
 //                        $searchSolarium[$key] = $item . ' AND music_cat_id: ' . CAT_BEAT;
@@ -267,8 +267,8 @@ class SearchController extends Controller
             if(isset($request->view_all) || isset($request->view_video)) {
                 $searchSolarium = [];
 //                if($quickSearch) {
-                $searchSolarium['video_title_charset_nospace'] = $charsetNoSpace . '^500';
-                $searchSolarium['video_title_artist_charset_nospace'] = $charsetNoSpace . '^100 | video_title_artist_charset_nospace:' . $charsetNoSpace . '*^50';
+                    $searchSolarium['video_title_charset_nospace'] = $charsetNoSpace . '^500';
+                    $searchSolarium['video_title_artist_charset_nospace'] = $charsetNoSpace . '^100 | video_title_artist_charset_nospace:' . $charsetNoSpace . '*^50';
 //                }
                 if($titleSearch) {
                     $searchSolarium['video_title_charset'] = $titleCharset . '^2';

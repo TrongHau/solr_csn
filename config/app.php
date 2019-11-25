@@ -177,6 +177,7 @@ return [
 
         // custom app
         App\Providers\SolariumServiceProvider::class,
+        Jenssegers\Agent\AgentServiceProvider::class,
 
     ],
 
