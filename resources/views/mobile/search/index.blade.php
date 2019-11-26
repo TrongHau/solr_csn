@@ -67,7 +67,7 @@ $memberVip = Helpers::checkMemberVip();
                                     <?php
                                     }, $result['music']['data'])
                                     ?>
-                                    <center><?php Helpers::pagingCustom($result['music']['page'] ?? 1, $result['music']['rows'] ?? 0, $result['music']['row_total'] ?? 0, '<a href="/tim-kiem?q=&page_music=%d&tab=music">%d</a>', $search) ?></center>
+                                    <center><?php Helpers::pagingCustom($result['music']['page'] ?? 1, $result['music']['rows'] ?? 0, $result['music']['row_total'] ?? 0, '<a href="' . env('SEARCH_TEMPLATE_URL') . '/tim-kiem?q=&page_music=%d&tab=music">%d</a>', $search) ?></center>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@ $memberVip = Helpers::checkMemberVip();
                                     <?php
                                     }, $result['album']['data'])
                                     ?>
-                                    <center><?php Helpers::pagingCustom($result['album']['page'] ?? 1, $result['album']['rows'] ?? 0, $result['album']['row_total'] ?? 0,  '<a href="/tim-kiem?q=&page_music=%d&tab=album">%d</a>', $search) ?></center>
+                                    <center><?php Helpers::pagingCustom($result['album']['page'] ?? 1, $result['album']['rows'] ?? 0, $result['album']['row_total'] ?? 0,  '<a href="' . env('SEARCH_TEMPLATE_URL') . '/tim-kiem?q=&page_music=%d&tab=album">%d</a>', $search) ?></center>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +119,7 @@ $memberVip = Helpers::checkMemberVip();
                                     <?php
                                     }, $result['video']['data'])
                                     ?>
-                                    <center><?php Helpers::pagingCustom($result['video']['page'] ?? 1, $result['video']['rows'] ?? 0, $result['video']['row_total'] ?? 0,  '<a href="/tim-kiem?q=&page_music=%d&tab=video">%d</a>', $search) ?></center>
+                                    <center><?php Helpers::pagingCustom($result['video']['page'] ?? 1, $result['video']['rows'] ?? 0, $result['video']['row_total'] ?? 0,  '<a href="' . env('SEARCH_TEMPLATE_URL') . '/tim-kiem?q=&page_music=%d&tab=video">%d</a>', $search) ?></center>
                                 </div>
                             </div>
                         </div>
@@ -142,7 +142,7 @@ $memberVip = Helpers::checkMemberVip();
                                     <?php
                                     }, $result['music_playback']['data'])
                                     ?>
-                                    <center><?php Helpers::pagingCustom($result['music_playback']['page'] ?? 1, $result['music_playback']['rows'] ?? 0, $result['music_playback']['row_total'] ?? 0, '<a href="/tim-kiem?q=&page_playback=%d&tab=playback">%d</a>', $search) ?></center>
+                                    <center><?php Helpers::pagingCustom($result['music_playback']['page'] ?? 1, $result['music_playback']['rows'] ?? 0, $result['music_playback']['row_total'] ?? 0, '<a href="' . env('SEARCH_TEMPLATE_URL') . '/tim-kiem?q=&page_playback=%d&tab=playback">%d</a>', $search) ?></center>
                                 </div>
                             </div>
                         </div>
@@ -163,7 +163,7 @@ $memberVip = Helpers::checkMemberVip();
                                     <?php
                                     }, $result['artist']['data'])
                                     ?>
-                                    <center><?php Helpers::pagingCustom($result['artist']['page'] ?? 1, $result['artist']['rows'] ?? 0, $result['artist']['row_total'] ?? 0,  '<a href="/tim-kiem?q=&page_music=%d&tab=ca-si">%d</a>', $search) ?></center>
+                                    <center><?php Helpers::pagingCustom($result['artist']['page'] ?? 1, $result['artist']['rows'] ?? 0, $result['artist']['row_total'] ?? 0,  '<a href="' . env('SEARCH_TEMPLATE_URL') . '/tim-kiem?q=&page_music=%d&tab=ca-si">%d</a>', $search) ?></center>
                                 </div>
                             </div>
                         </div>

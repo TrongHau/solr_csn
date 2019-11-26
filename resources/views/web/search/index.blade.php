@@ -230,7 +230,7 @@ $filter = $_GET['filter'] ?? '';
                             }, $result['music']['data'])
                             ?>
                         </ul>
-                        <center><?php Helpers::pagingCustom($result['music']['page'], $result['music']['rows'], $result['music']['row_total'] ?? 0, '<a href="/tim-kiem?q=&page_music=%d&filter=' . ($_GET['filter'] ?? 'all') . '">%d</a>', $search) ?></center>
+                        <center><?php Helpers::pagingCustom($result['music']['page'], $result['music']['rows'], $result['music']['row_total'] ?? 0, '<a href="' . env('SEARCH_TEMPLATE_URL') . '/tim-kiem?q=&page_music=%d&filter=' . ($_GET['filter'] ?? 'all') . '">%d</a>', $search) ?></center>
                     @endif
                 </div>
                 <div class="tab-pane fade {{isset($_GET['page_album']) ? 'show active' : ''}}" id="nav-album" role="tabpanel" aria-labelledby="nav-album-tab">
@@ -264,7 +264,7 @@ $filter = $_GET['filter'] ?? '';
                         }, $result['album']['data'])
                         ?>
                     </div>
-                    <center><?php Helpers::pagingCustom($result['album']['page'], $result['album']['rows'], $result['album']['row_total'] ?? 0,  '<a href="/tim-kiem?q=&page_album=%d&filter=' . ($_GET['filter'] ?? 'all') . '">%d</a>', $search) ?></center>
+                    <center><?php Helpers::pagingCustom($result['album']['page'], $result['album']['rows'], $result['album']['row_total'] ?? 0,  '<a href="' . env('SEARCH_TEMPLATE_URL') . '/tim-kiem?q=&page_album=%d&filter=' . ($_GET['filter'] ?? 'all') . '">%d</a>', $search) ?></center>
                     @endif
                 </div>
                 <div class="tab-pane fade {{isset($_GET['page_video']) ? ' show active' : ''}}" id="nav-video" role="tabpanel" aria-labelledby="nav-video-tab">
@@ -297,7 +297,7 @@ $filter = $_GET['filter'] ?? '';
                             }, $result['video']['data'])
                             ?>
                         </div>
-                        <center><?php Helpers::pagingCustom($result['video']['page'], $result['video']['rows'], $result['video']['row_total'] ?? 0,  '<a href="/tim-kiem?q=&page_video=%d&filter=' . ($_GET['filter'] ?? 'all') . '">%d</a>', $search) ?></center>
+                        <center><?php Helpers::pagingCustom($result['video']['page'], $result['video']['rows'], $result['video']['row_total'] ?? 0,  '<a href="' . env('SEARCH_TEMPLATE_URL') . '/tim-kiem?q=&page_video=%d&filter=' . ($_GET['filter'] ?? 'all') . '">%d</a>', $search) ?></center>
                     @endif
                 </div>
                 <div class="tab-pane fade {{isset($_GET['page_playback']) ? 'show active' : ''}}" id="nav-playback" role="tabpanel" aria-labelledby="nav-playback-tab">
@@ -338,7 +338,7 @@ $filter = $_GET['filter'] ?? '';
                             }, $result['music_playback']['data'])
                             ?>
                         </ul>
-                        <center><?php Helpers::pagingCustom($result['music_playback']['page'], $result['music_playback']['rows'], $result['music_playback']['row_total'] ?? 0, '<a href="/tim-kiem?q=&page_playback=%d&filter=' . ($_GET['filter'] ?? 'all') . '">%d</a>', $search) ?></center>
+                        <center><?php Helpers::pagingCustom($result['music_playback']['page'], $result['music_playback']['rows'], $result['music_playback']['row_total'] ?? 0, '<a href="' . env('SEARCH_TEMPLATE_URL') . '/tim-kiem?q=&page_playback=%d&filter=' . ($_GET['filter'] ?? 'all') . '">%d</a>', $search) ?></center>
                     @endif
                 </div>
                 <div class="tab-pane fade {{isset($_GET['page_artist']) ? ' show active' : ''}}" id="nav-artist" role="tabpanel" aria-labelledby="nav-artist-tab">
@@ -367,7 +367,7 @@ $filter = $_GET['filter'] ?? '';
                             }, $result['artist']['data'])
                             ?>
                         </ul>
-                        <center><?php Helpers::pagingCustom($result['artist']['page'], $result['artist']['rows'], $result['artist']['row_total'] ?? 0,  '<a href="/tim-kiem?q=&page_artist=%d">%d</a>', $search) ?></center>
+                        <center><?php Helpers::pagingCustom($result['artist']['page'], $result['artist']['rows'], $result['artist']['row_total'] ?? 0, '<a href="' . env('SEARCH_TEMPLATE_URL') . '/tim-kiem?q=&page_artist=%d">%d</a>', $search) ?></center>
                     @endif
                 </div>
             </div>
