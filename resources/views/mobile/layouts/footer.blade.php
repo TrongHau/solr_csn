@@ -269,10 +269,6 @@ if($memberVip == null)
 
 @if(!$memberVip)
     <?php
-    $cookie_value = $_COOKIE["csn_popup_beta2"] ?? 0;
-    $session_ads_popup = $cookie_value ? intval(unserialize(stripslashes($cookie_value))) : 0;
-
-
     $cookie_name = "csn_popup_beta2";
     $session_ads_popup = $_COOKIE[$cookie_name] ? intval(unserialize(stripslashes($_COOKIE[$cookie_name]))) : 0;
     ?>
