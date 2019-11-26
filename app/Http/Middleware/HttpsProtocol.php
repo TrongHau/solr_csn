@@ -21,9 +21,9 @@ class HttpsProtocol {
 ////            exit;
 ////            abort(403, 'Lỗi truy cập');
 //        }
-        if ($request->ip() == '210.245.121.234' || $request->ip() == '14.161.21.142') {
-            \Debugbar::enable();
-        }
+//        if ($request->ip() == '210.245.121.234' || $request->ip() == '14.161.21.142') {
+//            \Debugbar::enable();
+//        }
         $expUri = explode('/', $request->getRequestUri());
         if(strpos($request->getHttpHost(), 'news') !== false) {
             if($request->getRequestUri() == '/') {
