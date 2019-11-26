@@ -269,12 +269,16 @@ if($memberVip == null)
 
 @if(!$memberVip)
     <?php
+    $cookie_value = $_COOKIE["csn_popup_beta2"] ?? 0;
+    $session_ads_popup = $cookie_value ? intval(unserialize(stripslashes($cookie_value))) : 0;
+
+
     $cookie_name = "csn_popup_beta2";
-    $session_ads_popup = isset($_COOKIE[$cookie_name]) ? intval(unserialize(stripslashes($_COOKIE[$cookie_name]))) : 0;
+    $session_ads_popup = $_COOKIE[$cookie_name] ? intval(unserialize(stripslashes($_COOKIE[$cookie_name]))) : 0;
     ?>
     @if ( $session_ads_popup < 1 )
-        <?php setcookie($cookie_name, serialize($session_ads_popup + 1), time() + 10, '/', '.chiasenhac.vn', 0); ?>
-        @include('cache.code_ads.mobile_popup');
+        <?php @setcookie($cookie_name, serialize($session_ads_popup + 1), time() + 10, '/', '.chiasenhac.vn', 0); ?>
+        @include('cache.code_ads.mobile_popup')
         {{--include(__DIR__.'../../../resources/views/cache/code_ads/mobile_popup.blade.php');--}}
     @endif
 
