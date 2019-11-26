@@ -7,7 +7,7 @@
             source: function( request, response ) {
                 delete $.ajaxSettings.headers["X-CSRF-TOKEN"];
                 $.ajax( {
-                    url: "https://solr2.chiasenhac.vn/search/real",
+                    url: "<?php echo env('SEARCH_URL'); ?>/search/real",
                     // url: window.location.origin + "/search/real",
                     dataType: "json",
                     data: {
@@ -101,7 +101,7 @@
             });
             return '<h4 class="card-title">Nghệ sĩ</h4>' +
                 '<ul class="list-unstyled list_music">' +
-                    artist +
+                artist +
                 '</ul><hr>';
         }
         return '';
@@ -393,12 +393,12 @@
         ?>
         switchAuth('myModal_<?php echo $_GET['rq'] ?>');
         <?php
-            if(isset($_GET['back_url'])) {
-                ?>
-                $('.social').find('.facebook').attr('href', '/auth/facebook?back_url=<?php echo $_GET['back_url'] ?>')
-                $('.social').find('.google-plus').attr('href', '/auth/google?back_url=<?php echo $_GET['back_url'] ?>')
-                <?php
-            }
+        if(isset($_GET['back_url'])) {
+        ?>
+        $('.social').find('.facebook').attr('href', '/auth/facebook?back_url=<?php echo $_GET['back_url'] ?>')
+        $('.social').find('.google-plus').attr('href', '/auth/google?back_url=<?php echo $_GET['back_url'] ?>')
+        <?php
+        }
         ?>
         <?php
         }
@@ -597,9 +597,9 @@
         switchAuth('myModal_login');
         return false;
         <?php
-        }
-        ?>
-        window.location.href = url;
+            }
+            ?>
+            window.location.href = url;
     }
 </script>
 <footer id="footer">
@@ -718,7 +718,7 @@
                     <?php
                     global $startTime;
                     use App\Models\ErrorBugSlowModel;
-//                    $endTime = number_format(microtime(true) - $startTime, 3);
+                    //                    $endTime = number_format(microtime(true) - $startTime, 3);
                     $endTime = round(microtime(true) - LARAVEL_START, 2);
                     if($endTime > 5) {
                         ErrorBugSlowModel::firstOrCreate([
@@ -838,70 +838,70 @@
 @endif
 
 @if( rand(1,100) < 0 )
-<!-- Flight Tag: Chiasenhac - Vn/Yamaha/Apr19/JanusPromotion -->
-<script type="text/javascript">
-    var screenW = 640, screenH = 480;
-    screenW = screen.width;
-    screenH = screen.height;
+    <!-- Flight Tag: Chiasenhac - Vn/Yamaha/Apr19/JanusPromotion -->
+    <script type="text/javascript">
+        var screenW = 640, screenH = 480;
+        screenW = screen.width;
+        screenH = screen.height;
 
-    if ( screenW > 1280 )
-    {
-        var b_width = 120;
-        var b_height = 600;
-        var a_marginleft = 600;
-        var b_marginleft = -(a_marginleft + b_width);//-(492 + b_width);
+        if ( screenW > 1280 )
+        {
+            var b_width = 120;
+            var b_height = 600;
+            var a_marginleft = 600;
+            var b_marginleft = -(a_marginleft + b_width);//-(492 + b_width);
 
-        document.write('<div id="asb_left" style="position: fixed; top: 57px; left: 0pt; width: 100%; height: ' + b_height + 'px; overflow: hidden; visibility: hidden;"><div style="position: absolute; visibility: visible; left: 50%; margin-left: ' + b_marginleft + 'px; margin-right: 0pt; z-index:-1;">');
-        document.write('<div id="innity_page_skin_expandable_left"></div>');
-        document.write('</div></div>');
+            document.write('<div id="asb_left" style="position: fixed; top: 57px; left: 0pt; width: 100%; height: ' + b_height + 'px; overflow: hidden; visibility: hidden;"><div style="position: absolute; visibility: visible; left: 50%; margin-left: ' + b_marginleft + 'px; margin-right: 0pt; z-index:-1;">');
+            document.write('<div id="innity_page_skin_expandable_left"></div>');
+            document.write('</div></div>');
 
-        document.write('<div id="asb_right" style="position: fixed; top: 57px; right: 0px; width: 100%; height: ' + b_height + 'px; overflow: hidden; visibility: hidden;"><div style="position: absolute; visibility: visible; left: 50%; margin-left: ' + a_marginleft + 'px; margin-right: 0pt; z-index:-1;">');
-        document.write('<div id="innity_page_skin_expandable_right"></div>');
-        document.write('</div></div>');
+            document.write('<div id="asb_right" style="position: fixed; top: 57px; right: 0px; width: 100%; height: ' + b_height + 'px; overflow: hidden; visibility: hidden;"><div style="position: absolute; visibility: visible; left: 50%; margin-left: ' + a_marginleft + 'px; margin-right: 0pt; z-index:-1;">');
+            document.write('<div id="innity_page_skin_expandable_right"></div>');
+            document.write('</div></div>');
 
-        document.write('<div id="innity_adslot_238602"></div> ');
-        document.write('<s' + 'cript type="text/javascript">');
-        document.write(' innity_country = "VN";');
-        document.write(' innity_path = "/201904_27652/102485/";');
-        document.write(' innity_proxy = "proxy_238602";');
-        document.write(' innity_ord = "ord=[timestamp]";');
-        document.write(' </s'+'cript>');
-        document.write(' <s'+'cript type="text/javascript" src="https://cdn.innity.net/global.js">'+'</s'+'cript>');
-    }
-</script>
-<script type="text/javascript">
-    (function($){
-        $.fn.visible = function(partial){
+            document.write('<div id="innity_adslot_238602"></div> ');
+            document.write('<s' + 'cript type="text/javascript">');
+            document.write(' innity_country = "VN";');
+            document.write(' innity_path = "/201904_27652/102485/";');
+            document.write(' innity_proxy = "proxy_238602";');
+            document.write(' innity_ord = "ord=[timestamp]";');
+            document.write(' </s'+'cript>');
+            document.write(' <s'+'cript type="text/javascript" src="https://cdn.innity.net/global.js">'+'</s'+'cript>');
+        }
+    </script>
+    <script type="text/javascript">
+        (function($){
+            $.fn.visible = function(partial){
 
-            var $t			= $(this),
-                $w			= $(window),
-                viewTop			= $w.scrollTop(),
-                viewBottom		= viewTop + $w.height(),
-                _top			= $t.offset().top,
-                _bottom			= _top + $t.height(),
-                compareTop		= partial === true ? _bottom : _top,
-                compareBottom	= partial === true ? _top : _bottom;
+                var $t			= $(this),
+                    $w			= $(window),
+                    viewTop			= $w.scrollTop(),
+                    viewBottom		= viewTop + $w.height(),
+                    _top			= $t.offset().top,
+                    _bottom			= _top + $t.height(),
+                    compareTop		= partial === true ? _bottom : _top,
+                    compareBottom	= partial === true ? _top : _bottom;
 
-            return ((compareBottom <= viewBottom) && (compareTop >= viewTop));
-        };
-    })(jQuery);
+                return ((compareBottom <= viewBottom) && (compareTop >= viewTop));
+            };
+        })(jQuery);
 
-    if ( screenW > 1280 )
-    {
-        $( window ).scroll(function() {
-            if ( $(window).scrollTop() > 57 )
-            {
-                $("#asb_left").css({ top: "0px" });
-                $("#asb_right").css({ top: "0px" });
-            }
-            else
-            {
-                $("#asb_left").css({ top: (57 - $(window).scrollTop()) + "px" });
-                $("#asb_right").css({ top: (57 - $(window).scrollTop()) + "px" });
-            }
-        });
-    }
-</script>
-@endif
+        if ( screenW > 1280 )
+        {
+            $( window ).scroll(function() {
+                if ( $(window).scrollTop() > 57 )
+                {
+                    $("#asb_left").css({ top: "0px" });
+                    $("#asb_right").css({ top: "0px" });
+                }
+                else
+                {
+                    $("#asb_left").css({ top: (57 - $(window).scrollTop()) + "px" });
+                    $("#asb_right").css({ top: (57 - $(window).scrollTop()) + "px" });
+                }
+            });
+        }
+    </script>
+    @endif
 
-</section>
+    </section>

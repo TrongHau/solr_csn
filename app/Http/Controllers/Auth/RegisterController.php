@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\UserModel as User;
 use App\Http\Controllers\Controller;
-use App\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use App\Models\MailTokenModel;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Str;
+use Mail;
 
 class RegisterController extends Controller
 {
@@ -20,15 +25,14 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
-    use RegistersUsers;
-
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
+
+    use RegistersUsers;
 
     /**
      * Create a new controller instance.
@@ -48,11 +52,20 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        $validator = Validator::make($data, [
+            'username' => 'required|string|max:50|unique:csn_users|min:4',
+            'email' => 'required|string|email|max:255|unique:csn_users',
+            'name' => 'required|string|min:2|max:50',
+            'password' => 'required|string|min:6|max:30',
+            'captcha' => 'required',
         ]);
+        $validator->setAttributeNames([
+            'username' => 'Tên Tài Khoản',
+            'email' => 'Email',
+            'password' => 'Mật khẩu',
+            'captcha' => 'Mã bảo vệ'
+        ]);
+        return $validator;
     }
 
     /**
@@ -63,10 +76,41 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
+            'username' => $data['username'],
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'user_lastvisit' => time(),
+            'user_regdate' => time(),
+            'user_active' => DEACTIVE_USER,
+            'password' => bcrypt($data['password']),
         ]);
+        $user->user_id = $user->id;
+        $user->save();
+        $token = MailTokenModel::create([
+            'email' => $data['email'],
+            'token' => Str::random(60),
+            'created_at' => date('Y-m-d H:m', time())
+        ]);
+        $data = [
+            'user' => $user,
+            'token' => $token,
+        ];
+        Mail::send('emails.register', $data, function($message) use ($user)
+        {
+            $message->from(env('MAIL_USERNAME'), env('APP_NAME'));
+            $message->to($user->email, $user->name)->subject('Xác nhận thông tin đăng ký tài khoản Chia Sẻ Nhạc');
+        });
+        return $user;
+    }
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+        return response()->json(['success' => true], 200);
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
     }
 }

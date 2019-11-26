@@ -29,6 +29,7 @@ if($memberVip == null)
 <div id="fb-root"></div>
 <section class="wrapper_content">
 @include('web.layouts.wapper')
+
 @hasSection('hidden_wapper')
 @endif
 

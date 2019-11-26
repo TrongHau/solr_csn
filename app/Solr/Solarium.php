@@ -50,7 +50,6 @@ class Solarium
             // display the total number of documents found by solr
 //          $facetSet = $query->getFacetSet();
 //          $facetSet->createFacetField('stock')->setField('inStock');
-
             $resultset = $this->client->select($query);
 //            dd($resultset);
             // show documents using the resultset iterator

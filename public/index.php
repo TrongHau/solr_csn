@@ -1,13 +1,15 @@
 <?php
-
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
  * @package  Laravel
  * @author   Taylor Otwell <taylor@laravel.com>
  */
+global $timeStart, $allpage_banner;
+$timeStart = microtime(true);
 define('LARAVEL_START', microtime(true));
 
+$allpage_banner = false;
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
@@ -57,3 +59,4 @@ $response = $kernel->handle(
 $response->send();
 
 $kernel->terminate($request, $response);
+

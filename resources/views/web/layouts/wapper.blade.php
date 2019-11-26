@@ -8,7 +8,7 @@
                     </a>
                     <figcaption class="d-none">explanatory caption</figcaption>
                 </figure>
-                <form action="{{env('APP_URL')}}/tim-kiem">
+                <form action="/tim-kiem">
                     <a href="http://old.chiasenhac.vn/" target="_blank"><img src="./imgs/csn_bancu.png" style="float: left; margin-right: 10px;"></a>
                     <div class="form-group m-0" style="float:left">
                         <i class="material-icons">search</i>

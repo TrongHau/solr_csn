@@ -9,7 +9,7 @@ class SolariumServiceProvider extends ServiceProvider
 {
     protected $defer = true;
     /**
-     * Bootstrap services.
+     * Bootstrap the application services.
      *
      * @return void
      */
@@ -19,7 +19,7 @@ class SolariumServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register services.
+     * Register the application services.
      *
      * @return void
      */
