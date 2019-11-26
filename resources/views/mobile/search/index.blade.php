@@ -23,8 +23,8 @@ $memberVip = Helpers::checkMemberVip();
 @extends('mobile.layouts.app')
 @section('content')
     <div class="header">
-        @include('mobile.layouts.header_top')
-        <!-- swiper1-->
+    @include('mobile.layouts.header_top')
+    <!-- swiper1-->
         <div class="header_sub_menu">
             <div data-itemmenu="4" class="swiper-container swiper1">
                 <div class="swiper-wrapper">
@@ -39,11 +39,11 @@ $memberVip = Helpers::checkMemberVip();
     </div>
     <main class="main">
         @if(!$memberVip)
-        <div style="position: relative; text-align: center;">
-{{--            @if(View::exists('cache.code_ads.mobile_masthead'))--}}
+            <div style="position: relative; text-align: center;">
+                {{--            @if(View::exists('cache.code_ads.mobile_masthead'))--}}
                 @include('cache.code_ads.mobile_masthead')
-            {{--@endif--}}
-        </div>
+                {{--@endif--}}
+            </div>
         @endif
         <div class="sidebar_top">
             <!-- swiper2-->
@@ -204,26 +204,26 @@ $memberVip = Helpers::checkMemberVip();
         $( document ).ready(function() {
             setTimeout(function(){
                 <?php
-                    if(isset($_GET['page_album'])) {
-                        ?>
-                        $('.search-album').click();
-                        <?php
-                    }
-                    if(isset($_GET['page_video'])) {
-                        ?>
-                        $('.search-video').click();
-                        <?php
-                    }
-                        if(isset($_GET['page_playback'])) {
-                        ?>
-                        $('.search-playback').click();
+                if(isset($_GET['page_album'])) {
+                ?>
+                $('.search-album').click();
                 <?php
                 }
-                    if(isset($_GET['page_artist'])) {
-                        ?>
-                        $('.search-artist').click();
-                     <?php
-                    }
+                if(isset($_GET['page_video'])) {
+                ?>
+                $('.search-video').click();
+                <?php
+                }
+                if(isset($_GET['page_playback'])) {
+                ?>
+                $('.search-playback').click();
+                <?php
+                }
+                if(isset($_GET['page_artist'])) {
+                ?>
+                $('.search-artist').click();
+                <?php
+                }
                 ?>
             }, 200);
         });
