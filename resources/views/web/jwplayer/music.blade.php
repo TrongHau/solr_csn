@@ -640,7 +640,7 @@ if($musicSet['type_listen'] == 'playlist') {
                             </div>
                         </li>
                         <?php
-                    }, $sug)
+                    }, $su
                     ?>
 
                 </ul>
@@ -849,7 +849,7 @@ if($musicSet['type_listen'] == 'playlist') {
                 player.setCurrentQuality(offsetPlay);
                 alertModal('Xin lỗi bài hát này đã bị lỗi! Sẽ chuyển qua chất lượng khác');
                 if(offsetPlay < 2) { // 32k, 128k
-                    location.reload();
+                    // location.reload();
                 }
             } else {
                 alertModal('Xin lỗi bài hát này đã bị lỗi! Vui lòng trải nghiệm video khác');
