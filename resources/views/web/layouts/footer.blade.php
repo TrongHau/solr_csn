@@ -7,7 +7,7 @@
             source: function( request, response ) {
                 delete $.ajaxSettings.headers["X-CSRF-TOKEN"];
                 $.ajax( {
-                    url: "<?php echo env('SEARCH_URL'); ?>/search/real",
+                    url: "<?php echo env('SEARCH_REAL_URL'); ?>/search/real",
 
                     // url: window.location.origin + "/search/real",
                     dataType: "json",
@@ -193,8 +193,8 @@
         return '';
     }
     function redirectSearch() {
-        window.location.href = "<?php echo env('SEARCH_URL'); ?>/tim-kiem?q=" + $('#search_autocomplete').val();
-        
+        window.location.href = "<?php echo env('SEARCH_TEMPLATE_URL'); ?>/tim-kiem?q=" + $('#search_autocomplete').val();
+
     }
 </script>
 <!-- Modal -->
