@@ -184,11 +184,10 @@ Route::group(['middlewareGroups' => ['web']], function () {
 
 
     Route::group(['middleware' => ['auth']], function() {
-
         Route::group(['middleware' => ['isActive']], function() {
             // upload selector
             Route::prefix('dang-tai/')->group(function () {
-                Route::get('/', ['as' => 'upload.index', 'uses' => 'UploadController@index']);
+                Route::domain('upload.chiasenhac.localhost')->get('/', ['as' => 'upload.index', 'uses' => 'UploadController@index']);
                 Route::post('/noi-dung-chinh-sua-dang-tai', ['as' => 'upload.suggest', 'uses' => 'UploadController@suggest']);
                 Route::get('ca-si/tim-kiem', ['as' => 'artist.gettermartist', 'uses' => 'ArtistController@getTermArtist']);
                 Route::get('ca-si', ['as' => 'upload.createArtist', 'uses' => 'UploadController@createArtist']);

@@ -1,6 +1,5 @@
-﻿@section('hidden_wapper', true)
+@section('hidden_wapper', true)
 @section('in_edit', true)
-
 <?php
 use App\Library\Helpers;
 $mess = $typeUpload == 'music' ? 'bài hát' : 'video';
@@ -17,7 +16,7 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
 @endsection
 @extends('web.layouts.app')
 @section('content')
-{{--    @include('web.user.box_profile', ['user' =>  Auth::user(), 'float_edit' => false, 'float_edit' => false])--}}
+    {{--    @include('web.user.box_profile', ['user' =>  Auth::user(), 'float_edit' => false, 'float_edit' => false])--}}
     <div class="container">
         <div class="row row_wrapper">
             <div class="col-md-9">
@@ -51,7 +50,7 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
                 <div class="tab-content upload-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="upload_lyric" role="tabpanel" aria-labelledby="upload_lyric-tab">
                         <div class="box_upload_file d-flex align-items-center justify-content-center{{ $errors->has('drop_files') ? ' has-error-drop-file' : '' }}" >
-                            <form action="/dang-tai/file-nhac?type={{$typeUpload}}" class="box_process{{ ($errors->has('drop_html') || isset($music)) ? '' : ' dropzone' }}" enctype="multipart/form-data">
+                            <form action="{{env("UPLOAD_TEMPLATE_URL")}}/dang-tai/file-nhac?type={{$typeUpload}}" class="box_process{{ ($errors->has('drop_html') || isset($music)) ? '' : ' dropzone' }}" enctype="multipart/form-data">
                                 @if(old('drop_html'))
                                     <?php echo old('drop_html'); ?>
                                 @else
@@ -89,8 +88,8 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
                                 </span>
                         @endif
                         @if(isset($music))
-                        <div for="exampleInputEmail1" style="font-style: italic; margin-left: 5px;">Đã đăng tải vào: {{date("d/m/Y H:i", $music->music_time)}}, bởi: <a target="_blank" href="/user/{{$userMusic[0]->user_id}}">{{$userMusic[0]->username}}</a> {{$music->music_last_update_time ? ', cập nhật cuối cùng: ' . date("d/m/Y H:i", $music->music_last_update_time) : ''}}
-                            <?php
+                            <div for="exampleInputEmail1" style="font-style: italic; margin-left: 5px;">Đã đăng tải vào: {{date("d/m/Y H:i", $music->music_time)}}, bởi: <a target="_blank" href="/user/{{$userMusic[0]->user_id}}">{{$userMusic[0]->username}}</a> {{$music->music_last_update_time ? ', cập nhật cuối cùng: ' . date("d/m/Y H:i", $music->music_last_update_time) : ''}}
+                                <?php
                                 if($music->music_last_update_by) {
                                     if($music->music_user_id == $music->music_last_update_by)
                                         $userMusic[1] = $userMusic[0];
@@ -100,11 +99,11 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
                                         echo ', bởi: <a target="_blank" href="/user/'.$userMusic[1]->user_id.'">'.$userMusic[1]->username.'</a>';
                                     }
                                 }
-                            ?>
-                        </div>
+                                ?>
+                            </div>
                         @endif
                         <hr>
-                        <form action="" method="post" id="form_music" class="form_music has_drop_file" accept-charset="utf-8" enctype="multipart/form-data">
+                        <form action="{{env("UPLOAD_TEMPLATE_URL")}}/dang-tai/nhac" method="post" id="form_music" class="form_music has_drop_file" accept-charset="utf-8" enctype="multipart/form-data">
                             <div class="row row10px">
                                 <div class="col-12">
                                     <div class="box_right_upload form-row">
@@ -129,27 +128,27 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
                                         @endif
                                         <div class="choose_album_search list_music">
                                             @if(isset($music) && $music->cover_id)
-                                            <?php
+                                                <?php
                                                 $url = Helpers::album_url($album->toArray());
-                                            ?>
-                                            <li class="media align-items-stretch parent-line">
-                                                <div class="media-left align-items-stretch mr-2">
-                                                    <a target="_blank"href="{{$url}}"title="{{$album->music_album}} {{$album->album_artist_1}} {{$album->album_artist_2 ? '; '.$album->album_artist_2 : ''}}">
-                                                        <img src="{{Helpers::cover_url($album->cover_id)}}" alt="{{$album->music_album}} {{$album->album_artist_1}} {{$album->album_artist_2 ? '; '.$album->album_artist_2 : ''}}">
-                                                        <i class="material-icons">play_circle_outline</i>
-                                                    </a>
-                                                </div>
-                                                <a target="_blank" class="search-line" title="{{$album->music_album}}" href="{{$url}}">
-                                                    <div class="media-body align-items-stretch d-flex flex-column justify-content-between p-0">
-                                                        <div><h5 class="media-title mt-0 mb-0 span_h5" title="{{$album->music_album}} - {{$album->album_artist_1}} {{$album->album_artist_2 ? '; '.$album->album_artist_2 : ''}}"><span class="search_highlight">{{$album->music_album}} - {{$album->album_artist_1}} {{$album->album_artist_2 ? '; '.$album->album_artist_2 : ''}}</span>
-                                                            </h5>
-                                                            <div class="author">{{$album->album_artist_1}} {{$album->album_artist_2 ? '; '.$album->album_artist_2 : ''}}</div>
-                                                        </div>
-                                                        <small class="type_music c1"></small>
+                                                ?>
+                                                <li class="media align-items-stretch parent-line">
+                                                    <div class="media-left align-items-stretch mr-2">
+                                                        <a target="_blank"href="{{$url}}"title="{{$album->music_album}} {{$album->album_artist_1}} {{$album->album_artist_2 ? '; '.$album->album_artist_2 : ''}}">
+                                                            <img src="{{Helpers::cover_url($album->cover_id)}}" alt="{{$album->music_album}} {{$album->album_artist_1}} {{$album->album_artist_2 ? '; '.$album->album_artist_2 : ''}}">
+                                                            <i class="material-icons">play_circle_outline</i>
+                                                        </a>
                                                     </div>
-                                                </a>
-                                                <a class="boxclose" href="javascript:void(0)" onclick="deleteAlbum()" title="Xóa khỏi Album"></a>
-                                            </li>
+                                                    <a target="_blank" class="search-line" title="{{$album->music_album}}" href="{{$url}}">
+                                                        <div class="media-body align-items-stretch d-flex flex-column justify-content-between p-0">
+                                                            <div><h5 class="media-title mt-0 mb-0 span_h5" title="{{$album->music_album}} - {{$album->album_artist_1}} {{$album->album_artist_2 ? '; '.$album->album_artist_2 : ''}}"><span class="search_highlight">{{$album->music_album}} - {{$album->album_artist_1}} {{$album->album_artist_2 ? '; '.$album->album_artist_2 : ''}}</span>
+                                                                </h5>
+                                                                <div class="author">{{$album->album_artist_1}} {{$album->album_artist_2 ? '; '.$album->album_artist_2 : ''}}</div>
+                                                            </div>
+                                                            <small class="type_music c1"></small>
+                                                        </div>
+                                                    </a>
+                                                    <a class="boxclose" href="javascript:void(0)" onclick="deleteAlbum()" title="Xóa khỏi Album"></a>
+                                                </li>
                                             @endif
                                         </div>
 
@@ -327,18 +326,18 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
                                         <input type="hidden" name="music_filesize" class="music_filesize" value="{{old('music_filesize')}}">
                                         <input type="hidden" name="action_upload" class="action_upload" value="{{ isset($music) ? 'edit' : 'create' }}">
                                         @if($perMission_Duyet_Sua_Nhac && isset($music) && $music)
-                                        <div class="form-group col-4{{ $errors->has('music_state') ? ' has-error' : '' }}">
-                                            <label for="cat_id">Tình trạng xét duyệt</label>
-                                            <select class="form-control" name="music_state" id="music_state">
+                                            <div class="form-group col-4{{ $errors->has('music_state') ? ' has-error' : '' }}">
+                                                <label for="cat_id">Tình trạng xét duyệt</label>
+                                                <select class="form-control" name="music_state" id="music_state">
                                                     <option value="{{UPLOAD_STAGE_UNCENSOR}}">Chưa duyệt</option>
                                                     <option value="{{UPLOAD_STAGE_FULLCONVERT}}">Đã xử lý</option>
                                                     <option value="{{UPLOAD_STAGE_FULLCENSOR}}">Đã duyệt</option>
                                                     <option value="{{UPLOAD_STAGE_DELETED}}">Đã xóa</option>
-                                            </select>
-                                        </div>
-                                        <script>
-                                            document.getElementById('music_state').value = <?php echo old('music_state') ?? $music->music_state ?? 0 ?>;
-                                        </script>
+                                                </select>
+                                            </div>
+                                            <script>
+                                                document.getElementById('music_state').value = <?php echo old('music_state') ?? $music->music_state ?? 0 ?>;
+                                            </script>
                                         @endif
                                         @if(isset($music) && $typeUpload != 'video' &&  Auth::user()->hasPermission('duyet_sua_chat_luong_nhac'))
                                             <div class="form-group col-4{{ $errors->has('cat_id') ? ' has-error' : '' }}">
@@ -614,13 +613,13 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
             }
         };
         <?php
-          if(old('drop_html'))
+        if(old('drop_html'))
             echo 'Dropzone.prototype.defaultOptions.disableDropZone = true;
                   Dropzone.prototype.defaultOptions.maxFiles = 0;';
         ?>
 
         $(document).ready(function() {
-            $("#music_artist_id").tokenInput("/dang-tai/ca-si/tim-kiem", {
+            $("#music_artist_id").tokenInput("{{env("UPLOAD_TEMPLATE_URL")}}/dang-tai/ca-si/tim-kiem", {
                 theme: "facebook",
                 preventDuplicates: true,
                 setInputName: "#music_artist",
@@ -629,33 +628,33 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
                 hintText: 'Nhập tên ca sĩ',
                 searchingText: 'Đang tìm ca sĩ',
                 prePopulate: [
-                        <?php
-                        if(old('music_artist') && old('music_artist_id')) {
-                            $oldArtistName = explode(';', htmlspecialchars_decode(old('music_artist'), ENT_QUOTES));
-                            $oldArtistId = explode(';', old('music_artist_id'));
-                            foreach ($oldArtistName as $key => $val) {
-                                $oldArtist[] = [
-                                    'id' => $oldArtistId[$key],
-                                    'name' => $val
-                                ];
-                                echo '{id: ' . $oldArtistId[$key] . ', name: "' . str_replace('"', '\"', $val) . '"},';
-                            }
-                        }else{
-                            if(isset($music)) {
-                                if($music->music_artist && $music->music_artist_id) {
-                                    $oldArtistName = explode(';', htmlspecialchars_decode($music->music_artist, ENT_QUOTES));
-                                    $oldArtistId = explode(';', $music->music_artist_id);
-                                    foreach ($oldArtistName as $key => $val) {
-                                        $oldArtist[] = [
-                                            'id' => $oldArtistId[$key],
-                                            'name' => $val
-                                        ];
-                                        echo '{id: ' . $oldArtistId[$key] . ', name: "' . str_replace('"', '\"', $val) . '"},';
-                                    }
+                    <?php
+                    if(old('music_artist') && old('music_artist_id')) {
+                        $oldArtistName = explode(';', htmlspecialchars_decode(old('music_artist'), ENT_QUOTES));
+                        $oldArtistId = explode(';', old('music_artist_id'));
+                        foreach ($oldArtistName as $key => $val) {
+                            $oldArtist[] = [
+                                'id' => $oldArtistId[$key],
+                                'name' => $val
+                            ];
+                            echo '{id: ' . $oldArtistId[$key] . ', name: "' . str_replace('"', '\"', $val) . '"},';
+                        }
+                    }else{
+                        if(isset($music)) {
+                            if($music->music_artist && $music->music_artist_id) {
+                                $oldArtistName = explode(';', htmlspecialchars_decode($music->music_artist, ENT_QUOTES));
+                                $oldArtistId = explode(';', $music->music_artist_id);
+                                foreach ($oldArtistName as $key => $val) {
+                                    $oldArtist[] = [
+                                        'id' => $oldArtistId[$key],
+                                        'name' => $val
+                                    ];
+                                    echo '{id: ' . $oldArtistId[$key] . ', name: "' . str_replace('"', '\"', $val) . '"},';
                                 }
                             }
                         }
-                        ?>
+                    }
+                    ?>
                 ],
                 addFunction: function (){
                 }
@@ -799,27 +798,27 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
         }
         cat_level_reload(3);
         <?php
-            if($typeUpload == 'video') {
-                ?>
-                document.getElementById('cat_id').value = 1;
-                cat_level_reload(1);
-                <?php
-            }else{
-                ?>
-                document.getElementById('cat_id').value = <?php echo old('cat_id') ?? $music->cat_id ?? 3 ?>;
-                cat_level_reload(<?php echo old('cat_id') ?? $music->cat_id ?? 3 ?>);
-                setTimeout(function () {
-                    document.getElementById('cat_level').value = <?php echo old('cat_level') ?? $music->cat_level ?? 1 ?>;
-                    cat_sublevel_reload(<?php echo old('cat_level') ?? $music->cat_level ?? 1 ?>);
-                }, 200);
-                setTimeout(function () {
-                    document.getElementById('cat_sublevel').value = <?php echo old('cat_sublevel') ?? $music->cat_sublevel ?? 0 ?>;
-                }, 400);
-                setTimeout(function () {
-                    document.getElementById('cat_custom').value = <?php echo old('cat_custom') ?? $music->cat_custom ?? 0 ?>;
-                }, 600);
-                <?php
-            }
+        if($typeUpload == 'video') {
+        ?>
+        document.getElementById('cat_id').value = 1;
+        cat_level_reload(1);
+        <?php
+        }else{
+        ?>
+        document.getElementById('cat_id').value = <?php echo old('cat_id') ?? $music->cat_id ?? 3 ?>;
+        cat_level_reload(<?php echo old('cat_id') ?? $music->cat_id ?? 3 ?>);
+        setTimeout(function () {
+            document.getElementById('cat_level').value = <?php echo old('cat_level') ?? $music->cat_level ?? 1 ?>;
+            cat_sublevel_reload(<?php echo old('cat_level') ?? $music->cat_level ?? 1 ?>);
+        }, 200);
+        setTimeout(function () {
+            document.getElementById('cat_sublevel').value = <?php echo old('cat_sublevel') ?? $music->cat_sublevel ?? 0 ?>;
+        }, 400);
+        setTimeout(function () {
+            document.getElementById('cat_custom').value = <?php echo old('cat_custom') ?? $music->cat_custom ?? 0 ?>;
+        }, 600);
+        <?php
+        }
         ?>
 
         // search music
@@ -831,7 +830,7 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
                     delete $.ajaxSettings.headers["X-CSRF-TOKEN"];
                     $.ajax( {
                         // url: window.location.origin + "/search/real",
-                        url: "<?php echo env('SEARCH_URL'); ?>/search/real",
+                        url: "<?php echo env('SEARCH_REAL_URL'); ?>/search/real",
                         dataType: "json",
                         data: {
                             q: request.term,
@@ -857,7 +856,7 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
                         $('.choose_music_search').find('.media-title').html('<span class="search_highlight">' + title + '</span>');
                         $('.suggest_music').val($( this ).attr('href') || $( this ).find('a').attr('href'));
                         $.ajax({
-                            url: window.location.origin + '/dang-tai/noi-dung-chinh-sua-dang-tai',
+                            url: '{{env("UPLOAD_TEMPLATE_URL")}}/dang-tai/noi-dung-chinh-sua-dang-tai',
                             type: "POST",
                             dataType: "json",
                             data: {
@@ -931,7 +930,7 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
                     delete $.ajaxSettings.headers["X-CSRF-TOKEN"];
                     $.ajax( {
                         // url: window.location.origin + "/search/real",
-                        url: "https://solr2.chiasenhac.vn/search/real",
+                        url: "{{env("SEARCH_REAL_URL")}}/search/real",
                         dataType: "json",
                         data: {
                             q: request.term,
@@ -997,25 +996,25 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
             $('.cover_id').val(0);
         }
         <?php
-            if(isset($music)) {
-                ?>
-                $('.btn-delete-music').click(function (event) {
-                    event.preventDefault();
-                    confirmModal('Bạn có chắc chắn muốn xóa nhạc không?', '','modal-sm');
-                    $("#myConfirmModal .btn-ok").one('click', function () {
-                        $('.delete_music').val(<?php echo $music->music_id ?>);
-                        document.getElementById("form_music").submit();
-                    })
-                })
-                $('.btn-block-music').click(function (event) {
-                    event.preventDefault();
-                    confirmModal('Bạn có chắc chắn muốn chặn nhạc không?<br/><select class="form-control music_block_exp" name="music_block_exp" id="music_block_exp"><option value="0">Không thời hạn</option><option value="1">1 tháng</option><option selected value="3">3 tháng</option><option value="6">6 tháng</option><option value="12">1 năm</option></select>', '','modal-sm');
-                    $("#myConfirmModal .btn-ok").one('click', function () {
-                        window.location.href = '/admin/upload/set_exp/<?php echo $music->music_id ?>?return_form_upload=1&exp=' + $('.music_block_exp').val();
-                    })
-                })
-                <?php
-            }
+        if(isset($music)) {
+        ?>
+        $('.btn-delete-music').click(function (event) {
+            event.preventDefault();
+            confirmModal('Bạn có chắc chắn muốn xóa nhạc không?', '','modal-sm');
+            $("#myConfirmModal .btn-ok").one('click', function () {
+                $('.delete_music').val(<?php echo $music->music_id ?>);
+                document.getElementById("form_music").submit();
+            })
+        })
+        $('.btn-block-music').click(function (event) {
+            event.preventDefault();
+            confirmModal('Bạn có chắc chắn muốn chặn nhạc không?<br/><select class="form-control music_block_exp" name="music_block_exp" id="music_block_exp"><option value="0">Không thời hạn</option><option value="1">1 tháng</option><option selected value="3">3 tháng</option><option value="6">6 tháng</option><option value="12">1 năm</option></select>', '','modal-sm');
+            $("#myConfirmModal .btn-ok").one('click', function () {
+                window.location.href = '/admin/upload/set_exp/<?php echo $music->music_id ?>?return_form_upload=1&exp=' + $('.music_block_exp').val();
+            })
+        })
+        <?php
+        }
         ?>
     </script>
 @endsection

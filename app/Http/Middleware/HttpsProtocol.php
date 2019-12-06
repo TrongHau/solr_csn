@@ -25,6 +25,9 @@ class HttpsProtocol {
 //            \Debugbar::enable();
 //        }
         $expUri = explode('/', $request->getRequestUri());
+        if(!isset($expUri[1])) {
+            return redirect(env('APP_URL'));
+        }
         if(strpos($request->getHttpHost(), 'news') !== false) {
             if($request->getRequestUri() == '/') {
                 return redirect()->route('news.index.html');
@@ -37,6 +40,9 @@ class HttpsProtocol {
             if(strpos($request->getHttpHost(), 'news') === false) {
                 return redirect('//news.'.$request->getHttpHost().$request->getRequestUri());
             }
+        }
+        if($expUri[1] !== 'dang-tai') {
+            return redirect(env('APP_URL').$request->getRequestUri());
         }
 
         return $next($request);
