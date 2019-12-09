@@ -431,7 +431,7 @@ $titleMeta = 'Cập nhật album - ' . Config::get('constants.app.title');
             }
         });
         $(document).ready(function() {
-            $("#music_artist_id").tokenInput("/dang-tai/ca-si/tim-kiem", {
+            $("#music_artist_id").tokenInput("{{env("UPLOAD_TEMPLATE_URL")}}/dang-tai/ca-si/tim-kiem", {
                 theme: "facebook",
                 preventDuplicates: true,
                 setInputName: "#music_artist",
