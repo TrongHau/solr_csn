@@ -41,10 +41,10 @@ class HttpsProtocol {
                 return redirect('//news.'.$request->getHttpHost().$request->getRequestUri());
             }
         }
-//        $rqUri = substr($request->getRequestUri(), 0, (strpos($request->getRequestUri(), '?') != false ? strpos($request->getRequestUri(), '?') : 99));
-//        if(!$request->isMethod('post') && $rqUri != '/dang-tai/nhac' && $rqUri != '/dang-tai/video' && $rqUri != '/dang-tai/album' && $rqUri != '/dang-tai/ca-si/tim-kiem') {
-//            return redirect(env('APP_URL').$request->getRequestUri());
-//        }
+        $rqUri = substr($request->getRequestUri(), 0, (strpos($request->getRequestUri(), '?') != false ? strpos($request->getRequestUri(), '?') : 99));
+        if(!$request->isMethod('post') && $rqUri != '/dang-tai/nhac' && $rqUri != '/dang-tai/video' && $rqUri != '/dang-tai/album' && $rqUri != '/dang-tai/ca-si/tim-kiem') {
+            return redirect(env('APP_URL').$request->getRequestUri());
+        }
         return $next($request);
     }
 }
