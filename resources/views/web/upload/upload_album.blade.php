@@ -42,7 +42,7 @@ $titleMeta = 'Cập nhật album - ' . Config::get('constants.app.title');
                 <div class="tab-content upload-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="upload_lyric" role="tabpanel" aria-labelledby="upload_lyric-tab">
                         <div class="box_upload_file d-flex align-items-center justify-content-center{{ $errors->has('drop_files') ? ' has-error-drop-file' : '' }}" >
-                            <form action="{{env("UPLOAD_TEMPLATE_URL")}}/dang-tai/file-nhac" class="box_process dropzone" enctype="multipart/form-data">
+                            <form action="/dang-tai/file-nhac" class="box_process dropzone" enctype="multipart/form-data">
                                 @if(old('drop_html'))
                                     <?php echo old('drop_html'); ?>
                                 @else
@@ -127,7 +127,7 @@ $titleMeta = 'Cập nhật album - ' . Config::get('constants.app.title');
                             <p class="text-center upload_text_desc"><small>Bạn có thể upload nhiều bài hát cùng lúc bằng cách nhấn giữ phím Ctrl và click chọn các files.</small></p>
                         @endif
                         <hr>
-                        <form action="{{env("UPLOAD_TEMPLATE_URL")}}/dang-tai/album" method="post" class="form_music has_drop_file" accept-charset="utf-8" enctype="multipart/form-data">
+                        <form action="/dang-tai/album" method="post" class="form_music has_drop_file" accept-charset="utf-8" enctype="multipart/form-data">
                             <div class="row row10px">
                                 <div class="col-3 {{ $errors->has('album_cover') ? ' has-error' : '' }}">
                                     @if ($errors->has('album_cover'))
@@ -431,7 +431,7 @@ $titleMeta = 'Cập nhật album - ' . Config::get('constants.app.title');
             }
         });
         $(document).ready(function() {
-            $("#music_artist_id").tokenInput("{{env("UPLOAD_TEMPLATE_URL")}}/dang-tai/ca-si/tim-kiem", {
+            $("#music_artist_id").tokenInput("/dang-tai/ca-si/tim-kiem", {
                 theme: "facebook",
                 preventDuplicates: true,
                 setInputName: "#music_artist",
