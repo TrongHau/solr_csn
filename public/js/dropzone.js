@@ -2744,7 +2744,7 @@ var Dropzone = function (_Emitter) {
       if (xhr.responseType !== 'arraybuffer' && xhr.responseType !== 'blob') {
         response = xhr.responseText;
 
-        if (xhr.getResponseHeader("content-type") && ~xhr.getResponseHeader("content-type").indexOf("application/json")) {
+        // if (xhr.getResponseHeader("content-type") && ~xhr.getResponseHeader("content-type").indexOf("application/json")) {
           try {
             response = JSON.parse(response);
             this.options.callResponseSuccess(response);
@@ -2758,7 +2758,7 @@ var Dropzone = function (_Emitter) {
             e = error;
             response = "Invalid JSON response from server.";
           }
-        }
+        // }
       }
 
       this._updateFilesUploadProgress(files);
