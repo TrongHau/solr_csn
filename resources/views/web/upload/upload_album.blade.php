@@ -42,7 +42,7 @@ $titleMeta = 'Cập nhật album - ' . Config::get('constants.app.title');
                 <div class="tab-content upload-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="upload_lyric" role="tabpanel" aria-labelledby="upload_lyric-tab">
                         <div class="box_upload_file d-flex align-items-center justify-content-center{{ $errors->has('drop_files') ? ' has-error-drop-file' : '' }}" >
-                            <form action="/dang-tai/file-nhac" class="box_process dropzone" enctype="multipart/form-data">
+                            <form action="{{env("UPLOAD_TEMPLATE_URL")}}/dang-tai/file-nhac" class="box_process dropzone" enctype="multipart/form-data">
                                 @if(old('drop_html'))
                                     <?php echo old('drop_html'); ?>
                                 @else
