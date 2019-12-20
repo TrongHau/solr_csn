@@ -107,7 +107,7 @@ class ArtistUploadController extends CrudController
                 'function' => function($entry) {
                     if(!$entry->artist_avatar)
                         return '-';
-                    $urlImg = Helpers::file_path($entry->artist_id, PUBLIC_CACHE_AVATAR_ARTIST_PATH, true) . $entry->artist_avatar;
+                    $urlImg = env('UPLOAD_TEMPLATE_URL').Helpers::file_path($entry->artist_id, PUBLIC_CACHE_AVATAR_ARTIST_PATH, true) . $entry->artist_avatar;
                     return '<a href="'.Helpers::artistUrl($entry->artist_id, $entry->artist_nickname).'" target="_blank">
                               <img src="'.$urlImg.'" style="
                                   max-height: 25px;
