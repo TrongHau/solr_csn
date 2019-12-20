@@ -27,7 +27,7 @@ $titleMeta = isset($artistExist) ? 'Cập nhật nghệ sĩ '.$artistExist->arti
                 @endif
                 <div class="card card_playlist">
                     <div class="card-body">
-                        <form action="/dang-tai/ca-si" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+                        <form action="{{env("UPLOAD_TEMPLATE_URL")}}/dang-tai/ca-si" method="post" accept-charset="utf-8" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-md-9">
                                     <div class="form-group row{{ $errors->has('artist_nickname') ? ' has-error' : '' }}">

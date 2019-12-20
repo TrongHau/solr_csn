@@ -23,7 +23,7 @@ $titleMeta = $playlistUser ? 'Cập nhật playlist - ' . $playlistUser->playlis
                 @endif
                 <div class="card card_playlist">
                     <div class="card-body">
-                        <form action="" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+                        <form action="{{env("UPLOAD_TEMPLATE_URL")}}/user/playlist/them" method="post" accept-charset="utf-8" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-md-9">
                                     <div class="form-group row{{ $errors->has('playlist_title') ? ' has-error' : '' }}">
