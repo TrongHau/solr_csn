@@ -43,7 +43,7 @@ class HttpsProtocol {
         }
         $rqUri = substr($request->getRequestUri(), 0, (strpos($request->getRequestUri(), '?') != false ? strpos($request->getRequestUri(), '?') : 99));
         if(!$request->isMethod('post') && $rqUri != '/dang-tai/nhac' && $rqUri != '/dang-tai/video' && $rqUri != '/dang-tai/album'
-            && $rqUri != '/dang-tai/ca-si' && $rqUri != '/user/playlist/them' && $rqUri != '/admin/artist_upload' && $rqUri != '/dang-tai/ca-si/tim-kiem'
+            && $rqUri != '/dang-tai/ca-si' && $rqUri != '/user/playlist/them' && $rqUri != '/admin/artist_upload' && strpos($request->getRequestUri(), '/dang-tai/ca-si') === false
             && strpos($rqUri,'/admin/artist_upload') === false) {
                 return redirect(env('APP_URL').$request->getRequestUri());
         }
