@@ -765,7 +765,7 @@ class UploadController extends Controller
         if(!$album)
             return redirect()->route('upload.upload_album')->with('error', 'tạo album thất bại');
         $typeImageCover = array_last(explode('.', htmlspecialchars_decode($_FILES['choose_album_cover']['name'], ENT_QUOTES)));
-        $fileNameCovert = Helpers::saveBase64ImageJpg($request->input('album_cover'), Helpers::file_path($album->cover_id, AVATAR_ALBUM_THUMB_CROP_PATH, true), $album->cover_id, ['dest' => Helpers::file_path($album->cover_id, AVATAR_ALBUM_THUMB_CROP_PATH, true), 'width' => 100, 'height' => null]);
+        $fileNameCovert = Helpers::saveBase64ImageJpg($request->input('album_cover'), Helpers::file_path($album->cover_id, AVATAR_ALBUM_CROP_PATH, true), $album->cover_id, ['dest' => Helpers::file_path($album->cover_id, AVATAR_ALBUM_THUMB_CROP_PATH, true), 'width' => 100, 'height' => null]);
         if($album->cover_filename)
             Storage::disk('public')->delete(Helpers::file_path($album->cover_id, COVER_ALBUM_SOURCE_PATH, true).$album->cover_filename);
         $fileNameCovertSource = Helpers::copySourceImage($request->file('choose_album_cover'), Helpers::file_path($album->cover_id, COVER_ALBUM_SOURCE_PATH, true), $album->cover_id . '-' . Str::random(8), $typeImageCover);
