@@ -807,7 +807,7 @@ class UploadController extends Controller
             $result->save();
         }
         $user->increment('user_music', $musicUpload);
-        return redirect()->route('upload.createMusic')->with('success', 'Đã tạo album mới ' . $request->input('music_album'). '<a href="/dang-tai/album/'.$result->cover_id.'"> vào chỉnh sửa album</a>');
+        return redirect()->route('upload.createAlbum')->with('success', 'Đã tạo album mới ' . $request->input('music_album'). '<a href="/dang-tai/album/'.$result->cover_id.'"> vào chỉnh sửa album</a>');
     }
     function suggest(Request $request) {
 
