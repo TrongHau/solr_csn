@@ -56,8 +56,8 @@ define('LIMIT_MUSIC_PAGE_ARTIST', 20);
 define('LIMIT_LISTEN_MUSIC_ARTIST', 100);
 define('LIMIT_LISTEN_MUSIC_ARTIST_MOBILE', 30);
 define('LIMIT_MUSIC_PAGE_CATEGORY', 20);
-define('CURRENT_YEAR', 2019);
-define('CURRENT_MONTH', 10);
+define('CURRENT_YEAR', 2020);
+define('CURRENT_MONTH', 1);
 define('MAX_LOSTLESS', 1000);
 
 // MUSIC ID ENCRIPT
@@ -75,6 +75,7 @@ define('PUBLIC_CACHE_COVER_ARTIST_PATH', '/storage/data/cache_artist/artist_cove
 
 // ALBUM
 define('AVATAR_ALBUM_CROP_PATH', '/data/album_cover/');
+define('AVATAR_ALBUM_THUMB_CROP_PATH', '/data/album_cover_thumb_100/');
 define('COVER_ALBUM_SOURCE_PATH', '/data/source_album_cover/');
 define('PUBLIC_COVER_ALBUM_CROP_PATH', '/storage/data/album_cover/');
 
@@ -172,3 +173,5 @@ define('LEVEL_VIP_2_5', 8); // vip 2 - 1 năm
 define('STATUS_PUBLISHED', 'PUBLISHED');
 define('STATUS_DRAF', 'DRAF');
 define('PAGE_CATEGORY', 5);
+define('LIMIT_ADD_PLAYLIST', 100);
+define('LIMIT_SHOW_MUSICS_PLAYLIST', 100);
