@@ -390,7 +390,8 @@ class Helpers
 
         // get the type of the image
         // we need the type to determine the correct loader
-        $type = exif_imagetype($src);
+//        $type = exif_imagetype($src);
+        $type = 2;
         // if no valid type or no handler found -> exit
         if (!$type || !$IMAGE_HANDLERS[$type]) {
             return null;
