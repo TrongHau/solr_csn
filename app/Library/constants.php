@@ -75,7 +75,7 @@ define('PUBLIC_CACHE_COVER_ARTIST_PATH', '/storage/data/cache_artist/artist_cove
 
 // ALBUM
 define('AVATAR_ALBUM_CROP_PATH', '/data/album_cover/');
-define('AVATAR_ALBUM_THUMB_CROP_PATH', '/data/album_cover_thumb_100/');
+define('AVATAR_ALBUM_THUMB_CROP_PATH', '/data/album_cover_thumb/');
 define('COVER_ALBUM_SOURCE_PATH', '/data/source_album_cover/');
 define('PUBLIC_COVER_ALBUM_CROP_PATH', '/storage/data/album_cover/');
 
