@@ -207,7 +207,7 @@ class ArtistController extends CrudController
         if(strlen($request->input('artist_avatar')) < 100) {
             $request->request->set('artist_avatar', str_replace(env('APP_URL') . Helpers::file_path($request->input('artist_id'), PUBLIC_AVATAR_ARTIST_PATH, true), '', $request->input('artist_avatar')));
         }else{
-            $fileNameAvt = Helpers::saveBase64ImageJpg($request->input('artist_avatar'), Helpers::file_path($request->input('artist_id'), AVATAR_ARTIST_CROP_PATH, true), $request->input('artist_id'));
+            $fileNameAvt = Helpers::saveBase64ImageJpg($request->input('artist_avatar'), Helpers::file_path($request->input('artist_id'), AVATAR_ARTIST_CROP_PATH, true), $request->input('artist_id'), ['dest' => Helpers::file_path($request->input('artist_id'), AVATAR_ARTIST_THUMB_CROP_PATH, true), 'width' => 100, 'height' => null]);
             $request->request->set('artist_avatar', $fileNameAvt);
         }
         if(strlen($request->input('artist_cover')) < 100) {

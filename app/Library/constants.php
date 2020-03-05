@@ -67,6 +67,7 @@ define('MAX_ID_CONST', 71902891);
 define('AVATAR_ARTIST_SOURCE_PATH', '/data/source_artist_avatar/');
 define('COVER_ARTIST_SOURCE_PATH', '/data/source_artist_cover/');
 define('AVATAR_ARTIST_CROP_PATH', '/data/artist_avatar/');
+define('AVATAR_ARTIST_THUMB_CROP_PATH', '/data/artist_avatar_thumb/');
 define('COVER_ARTIST_CROP_PATH', '/data/artist_cover/');
 define('CACHE_AVATAR_ARTIST_CROP_PATH', '/data/cache_artist/artist_avatar/');
 define('CACHE_COVER_ARTIST_CROP_PATH', '/data/cache_artist/artist_cover/');
