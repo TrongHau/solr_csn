@@ -243,13 +243,13 @@ class ArtistUploadController extends CrudController
         }
         if(strlen($request->input('artist_avatar')) > 100) {
             $typeImageAvatar = array_last(explode('.', $_FILES['choose_artist_avatar']['name']));
-            $fileNameAvt = Helpers::saveBase64ImageJpg($request->input('artist_avatar'), Helpers::file_path($request->input('artist_id'), CACHE_AVATAR_ARTIST_CROP_PATH, true), $request->artist_id, $typeImageAvatar);
+            $fileNameAvt = Helpers::saveBase64ImageJpg($request->input('artist_avatar'), Helpers::file_path($request->input('artist_id'), CACHE_AVATAR_ARTIST_CROP_PATH, true), $request->artist_id, ['dest' => Helpers::file_path($request->input('artist_id'), AVATAR_ARTIST_THUMB_CROP_PATH, true), 'width' => 100, 'height' => null]);
             Helpers::copySourceImage($request->file('choose_artist_avatar'), Helpers::file_path($request->input('artist_id'), AVATAR_ARTIST_SOURCE_PATH, true), $request->artist_id, $typeImageAvatar);
             $request->request->set('artist_avatar', $fileNameAvt);
         }
         if(strlen($request->input('artist_cover')) > 100) {
             $typeImageCover = array_last(explode('.', $_FILES['choose_artist_cover']['name']));
-            $fileNameCover = Helpers::saveBase64ImageJpg($request->input('artist_cover'), Helpers::file_path($request->input('artist_id'), CACHE_COVER_ARTIST_CROP_PATH, true), $request->artist_id, $typeImageCover);
+            $fileNameCover = Helpers::saveBase64ImageJpg($request->input('artist_cover'), Helpers::file_path($request->input('artist_id'), CACHE_COVER_ARTIST_CROP_PATH, true), $request->artist_id);
             Helpers::copySourceImage($request->file('choose_artist_cover'), Helpers::file_path($request->input('artist_id'), COVER_ARTIST_SOURCE_PATH, true), $request->artist_id, $typeImageCover);
             $request->request->set('artist_cover', $fileNameCover);
         }
@@ -347,6 +347,13 @@ class ArtistUploadController extends CrudController
             }
             $fileName = $artistExist->artist_id.'.'.last(explode('.', $artistUpload->artist_avatar));
             Storage::disk('public')->move(Helpers::file_path($artistUpload->artist_id, CACHE_AVATAR_ARTIST_CROP_PATH, true).$artistUpload->artist_avatar, $filePath.$fileName);
+
+            //create thumb
+            $dir_Thumb = Storage::disk('public')->getAdapter()->getPathPrefix() . Helpers::file_path($artistExist->artist_id, AVATAR_ARTIST_THUMB_CROP_PATH, true);
+            if (!file_exists($dir_Thumb)) {
+                mkdir($dir_Thumb, 0777, true);
+            }
+            Helpers::createThumbnail(Storage::disk('public')->getAdapter()->getPathPrefix() . $filePath . $artistExist->artist_avatar, $dir_Thumb . $artistExist->artist_avatar, 100, null);
             $artistExist->artist_avatar = $fileName;
         }
         if($artistUpload->artist_cover){
