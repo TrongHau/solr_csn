@@ -344,6 +344,8 @@ class ArtistUploadController extends CrudController
             $filePath = Helpers::file_path($artistExist->artist_id, AVATAR_ARTIST_CROP_PATH, true);
             if ($artistExist->artist_avatar && Storage::disk('public')->exists($filePath.$artistExist->artist_avatar)) {
                 Storage::disk('public')->delete($filePath.$artistExist->artist_avatar);
+            }else{
+                $artistExist->artist_avatar = $artistExist->artist_id.'.'.last(explode('.', $artistUpload->artist_avatar));
             }
             Storage::disk('public')->move(Helpers::file_path($artistUpload->artist_id, CACHE_AVATAR_ARTIST_CROP_PATH, true).$artistUpload->artist_avatar, $filePath.$artistExist->artist_avatar);
 
@@ -358,6 +360,8 @@ class ArtistUploadController extends CrudController
             $filePath = Helpers::file_path($artistExist->artist_id, COVER_ARTIST_CROP_PATH, true);
             if ($artistExist->artist_cover && Storage::disk('public')->exists($filePath.$artistExist->artist_cover)) {
                 Storage::disk('public')->delete($filePath.$artistExist->artist_cover);
+            }else{
+                $artistExist->artist_cover = $artistExist->artist_id.'.'.last(explode('.', $artistUpload->artist_cover));
             }
             Storage::disk('public')->move(Helpers::file_path($artistUpload->artist_id, CACHE_COVER_ARTIST_CROP_PATH, true).$artistUpload->artist_cover, $filePath.$artistExist->artist_cover);
         }
