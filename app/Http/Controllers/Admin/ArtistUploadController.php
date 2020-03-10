@@ -345,8 +345,7 @@ class ArtistUploadController extends CrudController
             if ($artistExist->artist_avatar && Storage::disk('public')->exists($filePath.$artistExist->artist_avatar)) {
                 Storage::disk('public')->delete($filePath.$artistExist->artist_avatar);
             }
-            $fileName = $artistExist->artist_id.'.'.last(explode('.', $artistUpload->artist_avatar));
-            Storage::disk('public')->move(Helpers::file_path($artistUpload->artist_id, CACHE_AVATAR_ARTIST_CROP_PATH, true).$artistUpload->artist_avatar, $filePath.$fileName);
+            Storage::disk('public')->move(Helpers::file_path($artistUpload->artist_id, CACHE_AVATAR_ARTIST_CROP_PATH, true).$artistUpload->artist_avatar, $filePath.$artistExist->artist_avatar);
 
             //create thumb
             $dir_Thumb = Storage::disk('public')->getAdapter()->getPathPrefix() . Helpers::file_path($artistExist->artist_id, AVATAR_ARTIST_THUMB_CROP_PATH, true);
@@ -354,16 +353,13 @@ class ArtistUploadController extends CrudController
                 mkdir($dir_Thumb, 0777, true);
             }
             Helpers::createThumbnail(Storage::disk('public')->getAdapter()->getPathPrefix() . $filePath . $artistExist->artist_avatar, $dir_Thumb . $artistExist->artist_avatar, 100, null);
-            $artistExist->artist_avatar = $fileName;
         }
         if($artistUpload->artist_cover){
             $filePath = Helpers::file_path($artistExist->artist_id, COVER_ARTIST_CROP_PATH, true);
             if ($artistExist->artist_cover && Storage::disk('public')->exists($filePath.$artistExist->artist_cover)) {
                 Storage::disk('public')->delete($filePath.$artistExist->artist_cover);
             }
-            $fileName = $artistExist->artist_id.'.'.last(explode('.', $artistUpload->artist_cover));
-            Storage::disk('public')->move(Helpers::file_path($artistUpload->artist_id, CACHE_COVER_ARTIST_CROP_PATH, true).$artistUpload->artist_cover, $filePath.$fileName);
-            $artistExist->artist_cover = $fileName;
+            Storage::disk('public')->move(Helpers::file_path($artistUpload->artist_id, CACHE_COVER_ARTIST_CROP_PATH, true).$artistUpload->artist_cover, $filePath.$artistExist->artist_cover);
         }
         $artistExist->artist_id_source = $artistUpload->artist_id;
         $artistExist->last_update_user_id = $artistUpload->last_update_user_id;
