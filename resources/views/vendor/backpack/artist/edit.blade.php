@@ -65,7 +65,7 @@ use App\Library\Helpers;
                         @endif
                         <div class="form-group col-xs-4">
                             <label style="display: -webkit-box;">Avatar</label>
-                            <img class="mr-3" style="width: 100%" id="artist_avatar_uploaded" src="{{$fields['artist_avatar']['value'] ? Helpers::file_path($fields['id']['value'], PUBLIC_AVATAR_ARTIST_PATH, true).$fields['artist_avatar']['value'].'?time='.time() : '/imgs/avatar_default.png'}}" alt="">
+                            <img class="mr-3" style="width: 100%" id="artist_avatar_uploaded" src="{{$fields['artist_avatar']['value'] ? env('DATA_URL').Helpers::file_path($fields['id']['value'], AVATAR_ARTIST_CROP_PATH, true).$fields['artist_avatar']['value'].'?time='.time() : '/imgs/avatar_default.png'}}" alt="">
                             <div class="media-body">
                                 <div class="form-group" style="margin-top: 10px;">
                                     <input type="file" class="form-control-file" name="choose_artist_avatar" id="choose_artist_avatar">
@@ -75,7 +75,7 @@ use App\Library\Helpers;
 
                         <div class="form-group col-xs-9">
                             <label style="display: -webkit-box;">Cover</label>
-                            <img class="mr-3" style="width: 100%" id="artist_cover_uploaded" src="{{$fields['artist_cover']['value'] ? Helpers::file_path($fields['id']['value'], PUBLIC_COVER_ARTIST_PATH, true).$fields['artist_cover']['value'].'?time='.time() : '/imgs/avatar_default.png'}}" alt="">
+                            <img class="mr-3" style="width: 100%" id="artist_cover_uploaded" src="{{$fields['artist_cover']['value'] ? env('DATA_URL').Helpers::file_path($fields['id']['value'], COVER_ARTIST_CROP_PATH, true).$fields['artist_cover']['value'].'?time='.time() : '/imgs/avatar_default.png'}}" alt="">
                             <div class="media-body">
                                 <div class="form-group" style="margin-top: 10px;">
                                     <input type="file" class="form-control-file" name="choose_artist_cover" id="choose_artist_cover">
