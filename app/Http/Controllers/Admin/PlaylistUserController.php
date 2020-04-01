@@ -269,7 +269,13 @@ class PlaylistUserController extends CrudController
             }
         }
         if(strlen($request->input('playlist_value_cover')) > 100) {
-            $fileNameCover = Helpers::saveBase64ImageJpg($request->input('playlist_value_cover'), Helpers::file_path($request->input('playlist_id'), MUSIC_PLAYLIST_PATH, true), $request->input('playlist_id'));
+            $fileNameCover = Helpers::saveBase64ImageJpg($request->input('playlist_value_cover'),
+                Helpers::file_path($request->input('playlist_id'), MUSIC_PLAYLIST_PATH, true),
+                $request->input('playlist_id'),
+                [
+                    ['dest' => Helpers::file_path($request->input('playlist_id'), MUSIC_PLAYLIST_THUMB_200_PATH, true), 'width' => 200, 'height' => null]
+                ]
+            );
             $request->request->set('playlist_cover', SET_ACTIVE);
         }
         $playlist = PlaylistModel::where('playlist_id', $request->input('playlist_id'))->first();

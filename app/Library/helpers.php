@@ -355,11 +355,13 @@ class Helpers
         }
         $imageSave = imagejpeg($source, $dir . $fileName, 88);
         if ($resize) {
-            $dir_Thumb = Storage::disk('public')->getAdapter()->getPathPrefix().$resize['dest'];
-            if (!file_exists($dir_Thumb)) {
-                mkdir($dir_Thumb, 0777, true);
+            foreach ($resize as $item) {
+                $dir_Thumb = Storage::disk('public')->getAdapter()->getPathPrefix().$item['dest'];
+                if (!file_exists($dir_Thumb)) {
+                    mkdir($dir_Thumb, 0777, true);
+                }
+                self::createThumbnail($dir . $fileName, $dir_Thumb . $fileName, $item['width'], $item['height']);
             }
-            self::createThumbnail($dir . $fileName, $dir_Thumb . $fileName, $resize['width'], $resize['height']);
         }
         imagedestroy($source);
         return $fileName;

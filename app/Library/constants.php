@@ -68,6 +68,7 @@ define('AVATAR_ARTIST_SOURCE_PATH', '/data/source_artist_avatar/');
 define('COVER_ARTIST_SOURCE_PATH', '/data/source_artist_cover/');
 define('AVATAR_ARTIST_CROP_PATH', '/data/artist_avatar/');
 define('AVATAR_ARTIST_THUMB_CROP_PATH', '/data/artist_avatar_thumb/');
+define('AVATAR_ARTIST_THUMB_200_CROP_PATH', '/data/artist_avatar_thumb_200/');
 define('COVER_ARTIST_CROP_PATH', '/data/artist_cover/');
 define('CACHE_AVATAR_ARTIST_CROP_PATH', '/data/cache_artist/artist_avatar/');
 define('CACHE_COVER_ARTIST_CROP_PATH', '/data/cache_artist/artist_cover/');
@@ -77,6 +78,7 @@ define('PUBLIC_CACHE_COVER_ARTIST_PATH', '/storage/data/cache_artist/artist_cove
 // ALBUM
 define('AVATAR_ALBUM_CROP_PATH', '/data/album_cover/');
 define('AVATAR_ALBUM_THUMB_CROP_PATH', '/data/album_cover_thumb/');
+define('AVATAR_ALBUM_THUMB_200_CROP_PATH', '/data/album_cover_thumb_200/');
 define('COVER_ALBUM_SOURCE_PATH', '/data/source_album_cover/');
 define('PUBLIC_COVER_ALBUM_CROP_PATH', '/storage/data/album_cover/');
 
@@ -117,6 +119,7 @@ define('MUSIC_FACE_SOURCE_PATH', 'data/source_face/');
 define('MUSIC_SPECTRUM_PATH', 'data/spectrum/');
 // Playlist
 define('MUSIC_PLAYLIST_PATH', 'data/playlist/');
+define('MUSIC_PLAYLIST_THUMB_200_PATH', 'data/playlist_thumb_200/');
 define('PUBLIC_MUSIC_PLAYLIST_PATH', '/storage/data/playlist/');
 define('DEFAULT_APPROVAL_PUBLISHER', 0); // 0 disable 1 activite
 define('MUSIC_PLAYLIST_PUBLISHER_PATH', 'data/playlist_publisher/');

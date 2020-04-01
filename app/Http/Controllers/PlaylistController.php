@@ -222,13 +222,21 @@ class PlaylistController extends Controller
         }
         if($request->input('playlist_cover'))
             $update['playlist_cover'] = SET_ACTIVE;
+
         if($action == 'edit') {
             $result = $playlist->update($update);
             $mes = 'Đã Cập nhập playlist.';
             $imgPlaylist = '';
             // update cover
             if($request->input('playlist_cover')) {
-                $fileNameCover = Helpers::saveBase64ImageJpg($request->input('playlist_cover'), Helpers::file_path($id, MUSIC_PLAYLIST_PATH, true), $id);
+                $fileNameCover = Helpers::saveBase64ImageJpg($request->input('playlist_cover'),
+                    Helpers::file_path($id, MUSIC_PLAYLIST_PATH, true),
+                    $id,
+                    [
+                        ['dest' => Helpers::file_path($id, MUSIC_PLAYLIST_THUMB_200_PATH, true), 'width' => 200, 'height' => null]
+
+                    ]
+                );
                 $imgPlaylist = Helpers::file_path($id, PUBLIC_MUSIC_PLAYLIST_PATH, true). $fileNameCover;
             }
             return redirect()->route('playlist.update_playlist', $id)->with(['success' => $mes, 'imgPlaylist' => $imgPlaylist]);
@@ -239,9 +247,16 @@ class PlaylistController extends Controller
             $mes = 'Đã tạo playlist '.$result->playlist_title;
             // update cover
             if($request->input('playlist_cover')) {
-                $fileNameCover = Helpers::saveBase64ImageJpg($request->input('playlist_cover'), Helpers::file_path($result->playlist_id, MUSIC_PLAYLIST_PATH, true), $result->playlist_id);
+                $fileNameCover = Helpers::saveBase64ImageJpg($request->input('playlist_cover'),
+                    Helpers::file_path($result->playlist_id, MUSIC_PLAYLIST_PATH, true),
+                    $result->playlist_id,
+                    [
+                        ['dest' => Helpers::file_path($result->playlist_id, MUSIC_PLAYLIST_THUMB_200_PATH, true), 'width' => 200, 'height' => null]
+                    ]
+                );
             }
-            return redirect('/user/playlist/chinh-sua')->with('success', $mes);
+            return redirect()->route('playlist.create_playlist')->with(['success' => $mes]);
+//            return redirect('/user/playlist/chinh-sua')->with('success', $mes);
         }
     }
     public function deletePlaylist(Request $request) {

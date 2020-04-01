@@ -232,7 +232,7 @@ Route::group(['middlewareGroups' => ['web']], function () {
             Route::post('cap-nhat/{id}', ['as' => 'playlist.store_playlist', 'uses' => 'PlaylistController@storePlaylist']);
             Route::get('chinh-sua', ['as' => 'playlist.edit_playlist', 'uses' => 'PlaylistController@editPagePlaylist']);
             Route::get('them', ['as' => 'playlist.create_playlist', 'uses' => 'PlaylistController@createPagePlaylist']);
-            Route::post('them', ['as' => 'playlist.create_playlist', 'uses' => 'PlaylistController@storePlaylist']);
+            Route::post('them', ['as' => 'playlist.store_playlist', 'uses' => 'PlaylistController@storePlaylist']);
             Route::post('delete', ['as' => 'playlist.delete_playlist', 'uses' => 'PlaylistController@deletePlaylist']);
         });
 

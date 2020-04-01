@@ -243,7 +243,13 @@ class ArtistUploadController extends CrudController
         }
         if(strlen($request->input('artist_avatar')) > 100) {
             $typeImageAvatar = array_last(explode('.', $_FILES['choose_artist_avatar']['name']));
-            $fileNameAvt = Helpers::saveBase64ImageJpg($request->input('artist_avatar'), Helpers::file_path($request->input('artist_id'), CACHE_AVATAR_ARTIST_CROP_PATH, true), $request->artist_id, ['dest' => Helpers::file_path($request->input('artist_id'), AVATAR_ARTIST_THUMB_CROP_PATH, true), 'width' => 100, 'height' => null]);
+            $fileNameAvt = Helpers::saveBase64ImageJpg($request->input('artist_avatar'),
+                Helpers::file_path($request->input('artist_id'), CACHE_AVATAR_ARTIST_CROP_PATH, true),
+                $request->artist_id,
+                [
+                    ['dest' => Helpers::file_path($request->input('artist_id'), AVATAR_ARTIST_THUMB_CROP_PATH, true), 'width' => 100, 'height' => null]
+                ]
+            );
             Helpers::copySourceImage($request->file('choose_artist_avatar'), Helpers::file_path($request->input('artist_id'), AVATAR_ARTIST_SOURCE_PATH, true), $request->artist_id, $typeImageAvatar);
             $request->request->set('artist_avatar', $fileNameAvt);
         }
