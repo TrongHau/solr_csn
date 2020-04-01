@@ -127,7 +127,7 @@ $titleMeta = 'Cập nhật album - ' . Config::get('constants.app.title');
                             <p class="text-center upload_text_desc"><small>Bạn có thể upload nhiều bài hát cùng lúc bằng cách nhấn giữ phím Ctrl và click chọn các files.</small></p>
                         @endif
                         <hr>
-                        <form action="/dang-tai/album" method="post" class="form_music has_drop_file" accept-charset="utf-8" enctype="multipart/form-data">
+                        <form action="" method="post" class="form_music has_drop_file" accept-charset="utf-8" enctype="multipart/form-data">
                             <div class="row row10px">
                                 <div class="col-3 {{ $errors->has('album_cover') ? ' has-error' : '' }}">
                                     @if ($errors->has('album_cover'))
