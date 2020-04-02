@@ -132,13 +132,30 @@ class Helpers
         return round(pow(1024, $base - floor($base)), 1) . ' ' . $suffix[$f_base];
     }
 
-
     public static function encodeID($id, $type = 'music')
     {
         $id_encode = dechex(MAX_ID_CONST - $id);
         $id_encode2 = str_replace(array(1,2,4,8,9,'a','e','f'), array('z','v','s','m','w','r','q','t'), $id_encode);
         $id_encode3 = str_replace(array(0,3,5,6,7,'b','c','d'), array('n','w','h','k','t','q','v','m'), $id_encode);
-        return (($type=='video') ? 'v' : 't') . $id_encode2 . 'q' . substr($id_encode3, 2, 5);
+
+        $txt = 'z';
+        switch ( $type )
+        {
+            case 'music':
+                $txt = 't';
+                break;
+            case 'video':
+                $txt = 'v';
+                break;
+            case 'album':
+                $txt = 'x';
+                break;
+            case 'artist':
+                $txt = 'y';
+                break;
+        }
+
+        return $txt . $id_encode2 . 'q' . substr($id_encode3, 2, 5);
     }
 
     public static function decodeID($hexID)
@@ -149,7 +166,7 @@ class Helpers
 
         // check ID fake
         $type = substr($hexID, 0, 1);
-        if ( $type !== 't' && $type !== 'v' ) return intval($hexID);
+        if ( $type !== 't' && $type !== 'v' && $type !== 'x' && $type !== 'y' && $type !== 'z' ) return intval($hexID);
         if ( substr($hexID, -6, 1) !== 'q' ) return intval($hexID);
         if ( substr($hexID, -5) != substr($id_encode3, 2, 5) ) return intval($hexID);
 
@@ -159,7 +176,17 @@ class Helpers
     public static function music_url($music_info, $mode = '')
     {
         $id = ($music_info['cat_id'] == CAT_VIDEO) ? self::encodeID($music_info['music_id'], 'video') : self::encodeID($music_info['music_id']);
-        return isset($music_info['music_title_url']) ? $music_info['music_title_url'] . "~" . $id . $mode . ".".HTMLEX : $id . $mode . "." . HTMLEX;
+        $url = explode('~', $music_info['music_title_url']);
+        if($url[0] == '') {
+            // music without title
+            $urlEnd = (isset($url[1]) && $url[1] != '' ? $url[1] . '-' : '') . '' . $id;
+        }elseif (!isset($url[1]) || $url[1] == '') {
+            // artist without name
+            $urlEnd = $url[0] . '-' . $id;
+        }else {
+            $urlEnd = $url[1] . '/' . $url[0]. '-' .$id;
+        }
+        return $urlEnd;
     }
     public static function music_id($music_info, $mode = '')
     {
@@ -168,9 +195,9 @@ class Helpers
     public static function artistUrl($artistId, $artistNickName, $mode = '')
     {
         if(!$artistId || $artistId == -1){
-            return '/tim-kiem?q='.trim($artistNickName).'&mode=ca-si';
+            return env('SEARCH_TEMPLATE_URL').'/tim-kiem?q='.trim($artistNickName).'&filter=ca-si';
         }
-        return '/ca-si/'.self::rawTiengVietUrl($artistNickName) . "~" . base64_encode(KEY_ID_ARTIST_ENCODE_URL . $artistId) . $mode . ".".HTMLEX;
+        return '/ca-si/'.strtolower(self::rawTiengVietUrl($artistNickName)) . "-" . self::encodeID((int)$artistId, 'ca-si') . $mode . HTMLEX;
     }
     public static function rawHtmlArtists($artistId, $artistNickName) {
         $artistId = explode(';', htmlspecialchars_decode($artistId, ENT_QUOTES));
@@ -236,7 +263,7 @@ class Helpers
 //        $nav_links = ($theme['themes_id'] == 4) ? '<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a href="' . $url . '" itemprop="item"><span itemprop="name">' . $lang['MUSIC'] . '</span></a><meta itemprop="position" content="' . $ct_id . '"></li>' : '';
 //        if (isset($cat_id2info[$c_id][0]['cat_short_title'])) {
 //            $url .= $cat_id2info[$c_id][0]['cat_url'] . "/";
-//            $nav_links .= ($theme['themes_id'] == 4) ? '<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a href="' . $url . '" itemprop="item"><span itemprop="name">' . $cat_id2info[$c_id][0]['cat_short_title'] . '</span></a><meta itemprop="position" content="' . (++$ct_id) . '"></li>' : '<a href="' . $url . '">' . $cat_id2info[$c_id][0]['cat_short_title'] . '</a>';
+//            $nav_links .= ($theme['themes_id'] == 4) ? '<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a href="' . $url . '" itemprop="item"><span itemprop="name">' . $cat_id2info[$c_id][0]['cat_short_title'] . '</span></a><meta itemprop="position" content="' . (++$ct_id) . '"></li>' : '<a href="' . $url . '">' . $cat_FIDinfo[$c_id][0]['cat_short_title'] . '</a>';
 //        }
 //
 //        if ($c_level > 0) {
@@ -301,11 +328,13 @@ class Helpers
                     default:
                         $seo_domain = '';
                 }
-
-                return $seo_domain . self::category_url($cat_id2info[$music_info['cat_id']][$music_info['cat_level']]) . self::music_url($music_info);
+                $url = ($music_info['cat_id'] == CAT_VIDEO) ? VIEW_VIDEO_URL . '/' : VIEW_MUSIC_URL . '/';
+                return ($seo_domain ? ENV('LISTEN_URL') : '') . $url . self::music_url($music_info) . HTMLEX;
+//                return $seo_domain . self::category_url($cat_id2info[$music_info['cat_id']][$music_info['cat_level']]) . self::music_url($music_info);
             }
-
-            return ($domain ? ENV('LISTEN_URL') : '') . self::category_url($cat_id2info[$music_info['cat_id']][$music_info['cat_level']]) . self::music_url($music_info);
+            $url = ($music_info['cat_id'] == CAT_VIDEO) ? VIEW_VIDEO_URL . '/' : VIEW_MUSIC_URL . '/';
+            return ($domain ? ENV('LISTEN_URL') : '') . $url . self::music_url($music_info) . HTMLEX;
+//            return ($domain ? ENV('LISTEN_URL') : '') . self::category_url($cat_id2info[$music_info['cat_id']][$music_info['cat_level']]) . self::music_url($music_info);
         }
         return '';
     }
@@ -392,8 +421,7 @@ class Helpers
 
         // get the type of the image
         // we need the type to determine the correct loader
-//        $type = exif_imagetype($src);
-        $type = 2;
+        $type = exif_imagetype($src);
         // if no valid type or no handler found -> exit
         if (!$type || !$IMAGE_HANDLERS[$type]) {
             return null;
@@ -507,20 +535,35 @@ class Helpers
         $arrSplit = explode('~', $url);
         $id_encode = last(str_replace('.html', '', $arrSplit));
         $type = $floatType ? $floatType : explode('/', url()->current())[3];
+        if(preg_match('/[A-Z]/', $id_encode) === 0) {
+            $id = self::decodeID($id_encode);
+        }else{
+            $id = str_replace(($type == 'playlist' || $type == 'playlist_publisher') ? KEY_ID_PLAYLIST_ENCODE_URL : KEY_ID_ALBUM_ENCODE_URL, "", base64_decode($id_encode));
+        }
         return [
-            'id' => str_replace(($type == 'playlist' || $type == 'playlist_publisher') ? KEY_ID_PLAYLIST_ENCODE_URL : KEY_ID_ALBUM_ENCODE_URL, "", base64_decode($id_encode)),
+            'id' => (int)$id,
             'type' => $type,
             'url' => str_replace(last($arrSplit), "", $arrSplit)
         ];
     }
     public  static function splitArtistUrl($url) {
-        $arrSplit = explode('~', $url);
-        $id_encode = last(str_replace('.html', '', $arrSplit));
-        return [
-            'id' => str_replace(KEY_ID_ARTIST_ENCODE_URL, "", base64_decode($id_encode)),
-            'type' => explode('/', url()->current())[3],
-            'url' => str_replace(last($arrSplit), "", $arrSplit)
-        ];
+        if(strpos('~', $url) !== false) {
+            $arrSplit = explode('~', $url);
+            $id_encode = last(str_replace('.html', '', $arrSplit));
+            return [
+                'id' => str_replace(KEY_ID_ARTIST_ENCODE_URL, "", base64_decode($id_encode)),
+                'type' => explode('/', url()->current())[3],
+                'url' => str_replace(last($arrSplit), "", $arrSplit)
+            ];
+        }else{
+            $id = last(explode('-', $url));
+            return [
+                'id' => self::decodeID($id),
+                'type' => explode('/', url()->current())[4],
+                'url' => ''
+            ];
+        }
+
     }
 
     public static function fbShareLink($url, $domain = false)
@@ -528,9 +571,9 @@ class Helpers
         return 'https://www.facebook.com/dialog/share?app_id=' . env('FACEBOOK_APP_ID') . '&display=popup&href=' . ($domain ? ENV('LISTEN_URL') : '') . $url . '&redirect_uri=' . ($domain ? ENV('LISTEN_URL') : '') . $url;
     }
     public static function ajaxResult($is_success = true,
-                         $message = '',
-                         $data = array(),
-                         $terminer = true)
+                                      $message = '',
+                                      $data = array(),
+                                      $terminer = true)
     {
         echo json_encode(array(
                 'success' => $is_success,
@@ -548,7 +591,6 @@ class Helpers
         if(!is_array($musicHistory) || !in_array($idMusic, $musicHistory)) {
             return true;
         }
-        return false;
         /// set view with session
         session_start();
         if(!isset($_SESSION[$type])) {
@@ -597,11 +639,11 @@ class Helpers
     public static function cover_url($cover_id = 0, $artist_id = 0)
     {
         if($cover_id > 0) {
-             return self::cover_path($cover_id) . $cover_id . '.jpg';
+            return self::cover_path($cover_id) . $cover_id . '.jpg';
         }else{
             if($artist_id > 0) {
                 $artist = ArtistModel::find($artist_id);
-                return $artist && $artist->artist_avatar ? env('APP_URL') . self::file_path($artist->artist_id, PUBLIC_AVATAR_ARTIST_PATH, true) . $artist->artist_avatar : env('APP_URL') . '/imgs/no_cover.jpg';
+                return $artist && $artist->artist_avatar ? env('DATA_URL') . self::file_path($artist->artist_id, AVATAR_ARTIST_CROP_PATH, true) . $artist->artist_avatar : env('APP_URL') . '/imgs/no_cover.jpg';
             }else{
                 return env('APP_URL') . '/imgs/no_cover.jpg';
             }
@@ -800,21 +842,21 @@ class Helpers
     public static function album_url($album_info, $id = 0)
     {
         $album_title_url = self::rawTiengVietUrl(htmlspecialchars_decode($album_info['music_album'], ENT_QUOTES));
-        $album_url = $album_title_url . '~' . base64_encode(KEY_ID_ALBUM_ENCODE_URL . $album_info['cover_id']) . "." . HTMLEX;;
+        $album_url = strtolower($album_title_url) . '-' . self::encodeID($album_info['cover_id'], 'album');
 
-        return ($id == 0) ? SUB_ALLBUM . $album_url : SUB_ALLBUM . $album_url . '?id='. $id;
+        return (($id == 0) ? SUB_ALLBUM . $album_url : SUB_ALLBUM . $album_url . '?id='. $id) . HTMLEX;
     }
     public static function playlist_url($playlist_info, $id = 0)
     {
         $playlist_title_url = self::rawTiengVietUrl(htmlspecialchars_decode($playlist_info['playlist_title'],ENT_QUOTES));
-        $playlist_url = $playlist_title_url . '~' . base64_encode(KEY_ID_PLAYLIST_ENCODE_URL . $playlist_info['playlist_id']) . "." . HTMLEX;;
+        $playlist_url = base64_encode(KEY_ID_PLAYLIST_ENCODE_URL . $playlist_info['playlist_id']) . "/" . $playlist_title_url;;
 
-        return ($id == 0) ? SUB_PLAYLIST . $playlist_url : SUB_PLAYLIST . $playlist_url . '?id='. $id;
+        return (($id == 0) ? SUB_PLAYLIST . $playlist_url : SUB_PLAYLIST . $playlist_url . '?id='. $id);
     }
     public static function playlist_publisher_url($playlist_info, $id = 0)
     {
         $playlist_title_url = self::rawTiengVietUrl(htmlspecialchars_decode($playlist_info['playlist_title'], ENT_QUOTES));
-        $playlist_url = $playlist_title_url . '~' . base64_encode(KEY_ID_PLAYLIST_ENCODE_URL . $playlist_info['playlist_id']) . "." . HTMLEX;;
+        $playlist_url = $playlist_title_url . '~' . base64_encode(KEY_ID_PLAYLIST_ENCODE_URL . $playlist_info['playlist_id']);
 
         return ($id == 0) ? SUB_PLAYLIST_PUBLISHER . $playlist_url : SUB_PLAYLIST . $playlist_url . '?id='. $id;
     }
@@ -928,8 +970,12 @@ class Helpers
         // YCH's Server
         else if ($music_id <= 1529000)
             $url = 'https://data04.chiasenhac.com/';
+        else if ($music_id <= 1549000)
+            $url = 'https://data22.chiasenhac.com/';
         else if ($music_id <= 1569000)
-            $url = 'https://data03.chiasenhac.com/';
+            $url = 'https://data23.chiasenhac.com/';
+        else if ($music_id <= 1569000)
+            $url = 'https://data03.chiasenhac.com/'; // HDD ERROR DELETED
         // Large Server
         else if ($music_id <= 1649000)
             $url = 'https://data2.chiasenhac.com/';
@@ -963,9 +1009,11 @@ class Helpers
             $url = 'https://data33.chiasenhac.com/';
         else if ($music_id <= 2019000)
             $url = 'https://data18.chiasenhac.com/';
-        else if ($music_id <= 2029000)
+        else if ($music_id <= 2049000)
             $url = 'https://data19.chiasenhac.com/';
-        else if ($music_id <= 2046000)
+        else if ($music_id <= 2069000)
+            $url = 'https://data20.chiasenhac.com/';
+        else if ($music_id <= 2079000)
             $url = 'https://data25.chiasenhac.com/';
         else
             $url = 'https://data.chiasenhac.com/';
@@ -1076,12 +1124,14 @@ class Helpers
                 );
             }
             if ($music_info['music_lossless_filesize'] > 0) {
-                $file_url[] = array(
-                    'url' => $url . 'downloads/' . ceil($music_id / 1000) . '/' . date('w') . '/' . rawurlencode($music_info['music_filename_noext']) . "/flac/" . rawurlencode($music_info['music_file_cache']) . ".flac",
-                    'label' => 'Lossless',
-                    'size' => self::filesize2str($music_info['music_lossless_filesize']),
-                    'type' => 'flac'
-                );
+                if(env('APP_ENV') != 'local' && self::isVNIP(self::getIp()) && Auth::check()) {
+                    $file_url[] = array(
+                        'url' => $url . 'downloads/' . ceil($music_id / 1000) . '/' . date('w') . '/' . rawurlencode($music_info['music_filename_noext']) . "/flac/" . rawurlencode($music_info['music_file_cache']) . ".flac",
+                        'label' => 'Lossless',
+                        'size' => self::filesize2str($music_info['music_lossless_filesize']),
+                        'type' => 'flac'
+                    );
+                }
             }
         }
 
@@ -1336,4 +1386,45 @@ class Helpers
 
         }
     }
+//    public static function checkIpVN($IP) {
+//        $country = 'XX';
+//        if (!empty($IP)) {
+//            $country = file_get_contents('http://api.hostip.info/country.php?ip='.$IP);
+//        }
+//        return $country == 'VN' ? true : false;
+//    }
+    public static function Dot2LongIP($IPaddr)
+    {
+        if ($IPaddr == "") {
+            return 0;
+        }
+        else {
+            //$ips = split ("\.", "$IPaddr");
+            //$ips = preg_split("/\./", "$IPaddr");
+            $ips = explode(".", $IPaddr);
+            return ($ips[3] + $ips[2] * 256 + $ips[1] * 256 * 256 + intval($ips[0]) * 256 * 256 * 256);
+        }
+    }
+    public static function isVNIP($client_ip = '')
+    {
+        global $vn_long_ip_range;
+        include_once('DataIpVn.php');
+        $visitorIP = self::Dot2LongIP($client_ip);
+
+        if (strlen($client_ip) > 15) return true; // ipv6
+
+        for ($i = 0, $end = sizeof($vn_long_ip_range); $i < $end; $i++) {
+            if ($vn_long_ip_range[$i][0] > $visitorIP) {
+                return false;
+            } else if ($visitorIP <= $vn_long_ip_range[$i][1]) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public static function coverThumb($cover_url)
+    {
+        return str_replace(MUSIC_COVER_PATH, MUSIC_COVER_THUMB_PATH, $cover_url);
+    }
+
 }
