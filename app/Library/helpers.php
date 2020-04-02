@@ -149,7 +149,7 @@ class Helpers
 
         // check ID fake
         $type = substr($hexID, 0, 1);
-        if ( $type !== 't' && $type !== 'v' ) return intval($hexID);
+        if ( $type !== 't' && $type !== 'v' && $type !== 'x' && $type !== 'y' && $type !== 'z' ) return intval($hexID);
         if ( substr($hexID, -6, 1) !== 'q' ) return intval($hexID);
         if ( substr($hexID, -5) != substr($id_encode3, 2, 5) ) return intval($hexID);
 
