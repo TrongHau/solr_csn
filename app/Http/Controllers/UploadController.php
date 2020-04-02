@@ -248,7 +248,7 @@ class UploadController extends Controller
             $result->artist_cover = $fileNameCover;
         }
         $result->save();
-        return redirect()->route('upload.createArtist')->with('success', 'Cám ơn bạn đã đóng góp thông tin ca sĩ '.$result->artist_nickname.'.<br/>Thông tin ca sĩ đã được gửi thành công lên hệ thống và đang chờ mod kiểm duyệt.<br/>Click <a href="/">vào đây</a> để trở về trang chủ.');
+        return redirect()->route('upload.suggestArtist', ['urlArtist' => $urlArtist])->with('success', 'Cám ơn bạn đã đóng góp thông tin ca sĩ '.$result->artist_nickname.'.<br/>Thông tin ca sĩ đã được gửi thành công lên hệ thống và đang chờ mod kiểm duyệt.<br/>Click <a href="/">vào đây</a> để trở về trang chủ.');
 
     }
     function suggestArtist(Request $request, $urlArtist) {
