@@ -66,10 +66,10 @@ define('MAX_ID_CONST', 71902891);
 // ARTIST
 define('AVATAR_ARTIST_SOURCE_PATH', '/data/source_artist_avatar/');
 define('COVER_ARTIST_SOURCE_PATH', '/data/source_artist_cover/');
-define('AVATAR_ARTIST_CROP_PATH', '/data/artist_avatar/');
+define('AVATAR_ARTIST_CROP_PATH', 'data/artist_avatar/');
 define('AVATAR_ARTIST_THUMB_CROP_PATH', '/data/artist_avatar_thumb/');
 define('AVATAR_ARTIST_THUMB_200_CROP_PATH', '/data/artist_avatar_thumb_200/');
-define('COVER_ARTIST_CROP_PATH', '/data/artist_cover/');
+define('COVER_ARTIST_CROP_PATH', 'data/artist_cover/');
 define('CACHE_AVATAR_ARTIST_CROP_PATH', '/data/cache_artist/artist_avatar/');
 define('CACHE_COVER_ARTIST_CROP_PATH', '/data/cache_artist/artist_cover/');
 define('PUBLIC_CACHE_AVATAR_ARTIST_PATH', '/storage/data/cache_artist/artist_avatar/');

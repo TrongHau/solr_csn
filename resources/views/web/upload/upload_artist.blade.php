@@ -71,7 +71,7 @@ $titleMeta = isset($artistExist) ? 'Cập nhật nghệ sĩ '.$artistExist->arti
                                         </div>
                                         <div class="col-sm-8">
                                             <div class="media">
-                                                <img class="mr-3" id="artist_avatar_uploaded" src="{{isset($artistExist->artist_avatar) && $artistExist->artist_avatar ? env('UPLOAD_TEMPLATE_URL') . Helpers::file_path($artistExist->artist_id, PUBLIC_AVATAR_ARTIST_PATH, true) . $artistExist->artist_avatar : '/imgs/avatar_default.png'}}?v={{time()}}" alt="">
+                                                <img class="mr-3" id="artist_avatar_uploaded" src="{{isset($artistExist->artist_avatar) && $artistExist->artist_avatar ? Helpers::file_path($artistExist->artist_id, AVATAR_ARTIST_CROP_PATH, env('DATA_URL')) . $artistExist->artist_avatar : '/imgs/avatar_default.png'}}?v={{time()}}" alt="">
                                                 <div class="media-body">
                                                     <div class="form-group">
                                                         <label for="choose_artist_avatar">Chọn file ảnh</label>
@@ -94,7 +94,7 @@ $titleMeta = isset($artistExist) ? 'Cập nhật nghệ sĩ '.$artistExist->arti
                                         </div>
                                         <div class="col-sm-8">
                                             <div class="media">
-                                                <img class="mr-3" <?php echo isset($artistExist->artist_cover) && $artistExist->artist_cover ? 'style="width: 200px"' : '' ?> id="artist_cover_uploaded" src="{{isset($artistExist->artist_cover) && $artistExist->artist_cover ? env('UPLOAD_TEMPLATE_URL') . Helpers::file_path($artistExist->artist_id, PUBLIC_COVER_ARTIST_PATH, true) . $artistExist->artist_cover : '/imgs/avatar_default.png'}}?v={{time()}}" alt="">
+                                                <img class="mr-3" <?php echo isset($artistExist->artist_cover) && $artistExist->artist_cover ? 'style="width: 200px"' : '' ?> id="artist_cover_uploaded" src="{{isset($artistExist->artist_cover) && $artistExist->artist_cover ? Helpers::file_path($artistExist->artist_id, COVER_ARTIST_CROP_PATH, env('DATA_URL')) . $artistExist->artist_cover : '/imgs/avatar_default.png'}}?v={{time()}}" alt="">
                                                 <div class="media-body">
                                                     <div class="form-group">
                                                         <label for="choose_artist_cover">Chọn file ảnh</label>

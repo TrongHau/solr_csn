@@ -590,7 +590,7 @@ class Helpers
 
     public static function file_path($id, $dir = '', $url = '')
     {
-        $url = ($url == '') ? env('DATA_URL') : '';
+        $url = ($url == '') ? env('DATA_URL') : $url;
         return $url . $dir . ceil($id/1000) . '/';
     }
     public static function filePath($musicId, $dir = MUSIC_DATA_PATH, $url = '')
