@@ -407,9 +407,9 @@ $titleMeta = 'Cập nhật album - ' . Config::get('constants.app.title');
                 }else{
                     alertModal(result.message);
                     $('#myModal').on('hidden.bs.modal', function () {
-                        // location.reload();
+                        location.reload();
                     });
-                    $('.box_process').find('.dz-processing').last().remove();
+                    // $('.box_process').find('.dz-processing').last().remove();
                 }
             };
             <?php
