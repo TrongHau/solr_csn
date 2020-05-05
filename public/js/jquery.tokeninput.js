@@ -62,6 +62,7 @@ var DEFAULT_CLASSES = {
     tokenList: "token-input-list",
     token: "token-input-token",
     tokenDelete: "token-input-delete-token",
+    tokenNone: "input-token-none",
     selectedToken: "token-input-selected-token",
     highlightedToken: "token-input-highlighted-token",
     dropdown: "token-input-dropdown",
@@ -492,6 +493,7 @@ $.TokenList = function (input, url_or_data, settings) {
         if(item) {
             var this_token = settings.tokenFormatter(item);
         }
+        console.log(item.id);
         this_token = $(this_token)
           .addClass(settings.classes.token)
           .insertBefore(input_token);
