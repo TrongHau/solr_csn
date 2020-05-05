@@ -43,6 +43,10 @@ li.token-input-token-facebook {
     float: left;
     white-space: nowrap;
 }
+li.input-token-none {
+    background-color: #959595!important;
+    border: 1px solid #959595!important;
+}
 
 li.token-input-token-facebook p {
     display: inline;
