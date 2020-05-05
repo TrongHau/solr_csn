@@ -494,12 +494,15 @@ $.TokenList = function (input, url_or_data, settings) {
             var this_token = settings.tokenFormatter(item);
         }
         if(item.id == -1) {
-            console.log(123);
+            this_token = $(this_token)
+                .addClass(settings.classes.token)
+                .addClass(settings.classes.tokenNone)
+                .insertBefore(input_token);
+        }else{
+            this_token = $(this_token)
+                .addClass(settings.classes.token)
+                .insertBefore(input_token);
         }
-        this_token = $(this_token)
-          .addClass(settings.classes.token)
-            .addClass(settings.classes.tokenNone)
-          .insertBefore(input_token);
 
         // The 'delete token' button
         $("<span>" + settings.deleteText + "</span>")
