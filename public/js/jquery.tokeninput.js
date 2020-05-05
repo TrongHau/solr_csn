@@ -493,7 +493,9 @@ $.TokenList = function (input, url_or_data, settings) {
         if(item) {
             var this_token = settings.tokenFormatter(item);
         }
-        console.log(item.id);
+        if(item.id == -1) {
+            $(this_token).addClass(settings.classes.tokenNone);
+        }
         this_token = $(this_token)
           .addClass(settings.classes.token)
           .insertBefore(input_token);
