@@ -229,7 +229,7 @@ $titleMeta = 'Cập nhật album - ' . Config::get('constants.app.title');
                                                 </span>
                                             @endif
                                         </div>
-                                        <div {{isset($album) ? 'hidden' : ''}} class="form-group col-3{{ $errors->has('cat_id') ? ' has-error' : '' }}">
+                                        <div {{isset($album) ? 'hidden' : ''}} class="form-group col-4{{ $errors->has('cat_id') ? ' has-error' : '' }}">
                                             <label for="cat_id">Chuyên mục</label>
                                             <select {{isset($album) ? 'disabled' : ''}} class="form-control" name="cat_id" id="cat_id" onchange="cat_level_reload(this.value);">
                                                 <option value="2">Beat, Playback</option>
@@ -247,7 +247,7 @@ $titleMeta = 'Cập nhật album - ' . Config::get('constants.app.title');
                                                 </span>
                                             @endif
                                         </div>
-                                        <div {{isset($album) ? 'hidden' : ''}} class="form-group col-3{{ $errors->has('cat_level') ? ' has-error' : '' }}">
+                                        <div {{isset($album) ? 'hidden' : ''}} class="form-group col-4{{ $errors->has('cat_level') ? ' has-error' : '' }}">
                                             <label for="cat_level" style="opacity: 0;">csn</label>
                                             <select {{isset($album) ? 'disabled' : ''}} class="form-control" name="cat_level" id="cat_level" onchange="cat_sublevel_reload(this.value);">
                                                 <option value="1">Nhạc pop, rock...</option>
@@ -261,7 +261,7 @@ $titleMeta = 'Cập nhật album - ' . Config::get('constants.app.title');
                                                 </span>
                                             @endif
                                         </div>
-                                        <div {{isset($album) ? 'hidden' : ''}} class="form-group col-3{{ $errors->has('cat_sublevel') ? ' has-error' : '' }}">
+                                        <div {{isset($album) ? 'hidden' : ''}} class="form-group col-4{{ $errors->has('cat_sublevel') ? ' has-error' : '' }}">
                                             <label for="cat_sublevel" style="opacity: 0;">csn</label>
                                             <select {{isset($album) ? 'disabled' : ''}} class="form-control" name="cat_sublevel" id="cat_sublevel">
                                                 <option value="1">Nhạc trẻ</option>
@@ -275,21 +275,6 @@ $titleMeta = 'Cập nhật album - ' . Config::get('constants.app.title');
                                                     <strong>{{ $errors->first('cat_id') }}</strong>
                                                 </span>
                                             @endif
-                                        </div>
-                                        <div {{isset($album) ? 'hidden' : ''}} class="form-group col-3">
-                                            <label for="cat_custom" style="opacity: 0;">csn</label>
-                                            <select {{isset($album) ? 'disabled' : ''}} class="form-control" name="cat_custom" id="cat_custom">
-                                                <option value="0">---</option>
-                                                <option value="1">Giáng sinh</option>
-                                                <option value="2">Năm mới</option>
-                                                <option value="3">Nhà giáo VN</option>
-                                                <option value="6">Hát Live</option>
-                                                <option value="4">Phụ nữ</option>
-                                                <option value="5">Bóng đá</option>
-                                                <option value="7">Nhạc chế</option>
-                                                <option value="8">Ca sĩ mới</option>
-                                                <option value="9">Bonus track</option>
-                                            </select>
                                         </div>
                                         <div {{isset($album) ? 'hidden' : ''}} class="form-group col-12">
                                             <label for="music_note">Ghi chú</label>

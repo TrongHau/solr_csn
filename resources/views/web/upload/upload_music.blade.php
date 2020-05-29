@@ -211,7 +211,7 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
                                                 </span>
                                             @endif
                                         </div>
-                                        <div class="form-group col-3{{ $errors->has('cat_id') ? ' has-error' : '' }}">
+                                        <div class="form-group col-4{{ $errors->has('cat_id') ? ' has-error' : '' }}">
                                             <label for="cat_id">Chuyên mục</label>
                                             <select class="form-control" name="cat_id" id="cat_id" onchange="cat_level_reload(this.value);">
                                                 @if($typeUpload == 'video')
@@ -234,7 +234,7 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
                                                 </span>
                                             @endif
                                         </div>
-                                        <div class="form-group col-3{{ $errors->has('cat_level') ? ' has-error' : '' }}">
+                                        <div class="form-group col-4{{ $errors->has('cat_level') ? ' has-error' : '' }}">
                                             <label for="cat_level" style="opacity: 0;">csn</label>
                                             <select class="form-control" name="cat_level" id="cat_level" onchange="cat_sublevel_reload(this.value);">
                                                 <option value="1">Nhạc pop, rock...</option>
@@ -248,7 +248,7 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
                                                 </span>
                                             @endif
                                         </div>
-                                        <div class="form-group col-3{{ $errors->has('cat_sublevel') ? ' has-error' : '' }}">
+                                        <div class="form-group col-4{{ $errors->has('cat_sublevel') ? ' has-error' : '' }}">
                                             <label for="cat_sublevel" style="opacity: 0;">csn</label>
                                             <select class="form-control" name="cat_sublevel" id="cat_sublevel">
                                                 <option value="1">Nhạc trẻ</option>
@@ -262,21 +262,6 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
                                                     <strong>{{ $errors->first('cat_id') }}</strong>
                                                 </span>
                                             @endif
-                                        </div>
-                                        <div class="form-group col-3">
-                                            <label for="cat_custom" style="opacity: 0;">csn</label>
-                                            <select class="form-control" name="cat_custom" id="cat_custom">
-                                                <option value="0">---</option>
-                                                <option value="1">Giáng sinh</option>
-                                                <option value="2">Năm mới</option>
-                                                <option value="3">Nhà giáo VN</option>
-                                                <option value="6">Hát Live</option>
-                                                <option value="4">Phụ nữ</option>
-                                                <option value="5">Bóng đá</option>
-                                                <option value="7">Nhạc chế</option>
-                                                <option value="8">Ca sĩ mới</option>
-                                                <option value="9">Bonus track</option>
-                                            </select>
                                         </div>
                                         <div class="form-group col-12{{ $errors->has('music_lyric') ? ' has-error' : '' }}">
                                             <label for="music_lyric">Lời {{$mess}}</label>
@@ -814,9 +799,6 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
         setTimeout(function () {
             document.getElementById('cat_sublevel').value = <?php echo old('cat_sublevel') ?? $music->cat_sublevel ?? 0 ?>;
         }, 400);
-        setTimeout(function () {
-            document.getElementById('cat_custom').value = <?php echo old('cat_custom') ?? $music->cat_custom ?? 0 ?>;
-        }, 600);
         <?php
         }
         ?>
@@ -875,7 +857,6 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
                                 document.getElementById('cat_id').value = response.data.cat_id;
                                 document.getElementById('cat_level').value = response.data.cat_level;
                                 document.getElementById('cat_sublevel').value = response.data.cat_sublevel;
-                                document.getElementById('cat_custom').value = response.data.cat_custom;
                             }
                         });
                     })
