@@ -29,7 +29,7 @@ class PlaylistPublisherModel extends Model
             'playlist_id',
             'music_id'
         )->orderBy('playlist_order', 'asc')
-            ->select('csn_music.music_id', 'csn_music.music_title_url', 'csn_music.music_title', 'csn_music.music_artist', 'csn_music.music_artist_id', 'csn_music.cat_id', 'csn_music.cat_level', 'csn_music.cat_sublevel', 'csn_music.cat_custom', 'csn_music.cover_id', 'csn_music.music_download_time',
+            ->select('csn_music.music_id', 'csn_music.music_title_url', 'csn_music.music_title', 'csn_music.music_artist', 'csn_music.music_artist_id', 'csn_music.cat_id', 'csn_music.cat_level', 'csn_music.cat_sublevel', 'csn_music.cover_id', 'csn_music.music_download_time',
             'csn_music.music_last_update_time', 'csn_music.music_title_url', 'csn_music.music_title_search', 'csn_music.music_artist_search', 'csn_music.music_album_search', 'csn_music.music_composer', 'csn_music.music_album', 'csn_music.music_listen', 'csn_music.music_track_id', 'csn_music.music_filename', 'csn_music.music_bitrate');
     }
     public function video() {
@@ -40,7 +40,7 @@ class PlaylistPublisherModel extends Model
             'music_id',
             'playlist_id',
             'music_id'
-        )->select('csn_video.music_id', 'csn_video.music_title_url', 'csn_video.music_title', 'csn_video.music_artist', 'csn_video.music_artist_id', 'csn_video.cat_id', 'csn_video.cat_level', 'csn_video.cat_sublevel', 'csn_video.cat_custom', 'csn_video.cover_id', 'csn_video.music_download_time',
+        )->select('csn_video.music_id', 'csn_video.music_title_url', 'csn_video.music_title', 'csn_video.music_artist', 'csn_video.music_artist_id', 'csn_video.cat_id', 'csn_video.cat_level', 'csn_video.cat_sublevel', 'csn_video.cover_id', 'csn_video.music_download_time',
             'csn_video.music_last_update_time', 'csn_video.music_title_url', 'csn_video.music_title_search', 'csn_video.music_artist_search', 'csn_video.music_album_search', 'csn_video.music_composer', 'csn_video.music_album', 'csn_video.music_listen', 'csn_video.music_track_id', 'csn_video.music_filename', 'csn_video.music_bitrate');
     }
     public function playlist_category_cat_id() {
