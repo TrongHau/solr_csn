@@ -370,7 +370,7 @@ class UploadController extends Controller
 
         $typeUpload = $request->input('type_upload');
         $artistExp = $this->artistExpRepository->getArrNames();
-        if(Helpers::checkExitsExcepArtist($request->input('music_artist'), $artistExp) && !Auth::user()->hasPermission('duyet_sua_nhac')) {
+        if(Helpers::checkExitsExcepArtist($request->input('music_artist'), $artistExp)) {
             $errorMessages = new \Illuminate\Support\MessageBag;
             $errorMessages->merge(['music_artist' => ['Ca sĩ không được phép upload.']]);
             return redirect()->back()->withErrors($errorMessages);
@@ -739,6 +739,12 @@ class UploadController extends Controller
         if($countArtist != $countArtistId) {
             $errorMessages = new \Illuminate\Support\MessageBag;
             $errorMessages->merge(['music_artist' => ['Ca Sĩ bạn chọn không hợp lệ.']]);
+            return redirect()->back()->withErrors($errorMessages);
+        }
+        $artistExp = $this->artistExpRepository->getArrNames();
+        if(Helpers::checkExitsExcepArtist($request->input('music_artist'), $artistExp)) {
+            $errorMessages = new \Illuminate\Support\MessageBag;
+            $errorMessages->merge(['music_artist' => ['Ca sĩ không được phép upload.']]);
             return redirect()->back()->withErrors($errorMessages);
         }
         $fileUploads = explode(';', htmlspecialchars_decode($request->input('drop_files'), ENT_QUOTES));
