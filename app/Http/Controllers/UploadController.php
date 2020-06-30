@@ -384,11 +384,11 @@ class UploadController extends Controller
         $mess = '';
         $messType = $typeUpload == 'music' ? 'bài hát' : 'video';
         $user = Auth::user();
+        $per_Xet_Duyet = $user->hasPermission('duyet_sua_nhac');
+        $per_Xet_Duyet_Chat_luong = $user->hasPermission('duyet_sua_chat_luong_nhac');
         if($request->input('action_upload') == 'edit') {
             $userId = Auth::user()->id;
             $arrStage = [UPLOAD_STAGE_DELETED, UPLOAD_STAGE_UNCENSOR, UPLOAD_STAGE_FULLCONVERT];
-            $per_Xet_Duyet = $user->hasPermission('duyet_sua_nhac');
-            $per_Xet_Duyet_Chat_luong = $user->hasPermission('duyet_sua_chat_luong_nhac');
             if($per_Xet_Duyet) {
                 $userId = 'permission_duyet_csn';
                 $arrStage[] = UPLOAD_STAGE_FULLCENSOR;
@@ -415,10 +415,15 @@ class UploadController extends Controller
             $Solr = new SolrSyncController($this->Solr);
             if(!$request->input('cover_id')) {
                 $result->cover_id = 0;
+                $result->music_album = '';
             }else{
                 $newAlbum = $this->coverRepository->findCover($request->input('cover_id'));
+                if(!$newAlbum) {
+                    return view('errors.text_error')->with('message', 'Album bạn lựa chọn không tìm thấy hoặc đang cập nhật');
+                }
                 if($per_Xet_Duyet || $newAlbum->user_id == $user->id) {
-                    $result->cover_id = str_replace('cover_', '', $request->input('cover_id'));
+                    $result->cover_id = $newAlbum->cover_id;
+                    $result->music_album = $newAlbum->music_album;
                 }else{
                     return view('errors.text_error')->with('message', 'Bạn không có quyền với album này, kiểm tra lại quyền hoặc đăng tải của chủ sở hữu album');
                 }
@@ -597,6 +602,19 @@ class UploadController extends Controller
                 'music_state' => UPLOAD_STAGE_UNCENSOR,
                 'music_last_update_time' => time()
             ];
+            // update album
+            if(!$request->input('cover_id')) {
+                $newAlbum = $this->coverRepository->findCover($request->input('cover_id'));
+                if(!$newAlbum) {
+                    return view('errors.text_error')->with('message', 'Album bạn lựa chọn không tìm thấy hoặc đang cập nhật');
+                }
+                if($per_Xet_Duyet || $newAlbum->user_id == $user->id) {
+                    $csnMusic['cover_id'] = $newAlbum->cover_id;
+                    $csnMusic['music_album'] = $newAlbum->music_album;
+                }else{
+                    return view('errors.text_error')->with('message', 'Bạn không có quyền với album này, kiểm tra lại quyền hoặc đăng tải của chủ sở hữu album');
+                }
+            }
             $result = $this->uploadRepository->create($csnMusic);
         }
         if(!$result)
