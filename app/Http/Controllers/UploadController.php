@@ -603,7 +603,7 @@ class UploadController extends Controller
                 'music_last_update_time' => time()
             ];
             // update album
-            if(!$request->input('cover_id')) {
+            if($request->input('cover_id')) {
                 $newAlbum = $this->coverRepository->findCover($request->input('cover_id'));
                 if(!$newAlbum) {
                     return view('errors.text_error')->with('message', 'Album bạn lựa chọn không tìm thấy hoặc đang cập nhật');
