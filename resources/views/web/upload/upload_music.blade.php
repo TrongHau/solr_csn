@@ -265,7 +265,7 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
                                         </div>
                                         <div class="form-group col-12{{ $errors->has('music_lyric') ? ' has-error' : '' }}">
                                             <label for="music_lyric">Lời {{$mess}}</label>
-                                            <textarea class="form-control" name="music_lyric" id="music_lyric" rows="9">{{ old('music_lyric') ?? $music->music_lyric ?? '' }}</textarea>
+                                            <textarea class="form-control" name="music_lyric" id="music_lyric" rows="9">{{ htmlspecialchars_decode(old('music_lyric') ?? $music->music_lyric ?? '', ENT_QUOTES) }}</textarea>
                                             @if ($errors->has('music_lyric'))
                                                 <span class="help-block">
                                                     <strong>{{ str_replace('music lyric', 'Lời '.$mess, $errors->first('music_lyric')) }}</strong>
