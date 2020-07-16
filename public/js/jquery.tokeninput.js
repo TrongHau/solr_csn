@@ -95,7 +95,7 @@ var KEY = {
     RIGHT: 39,
     DOWN: 40,
     NUMPAD_ENTER: 108,
-    COMMA: 188
+    COMMA: 0
 };
 // Additional public (exposed) methods
 var methods = {
