@@ -305,7 +305,8 @@ $.TokenList = function (input, url_or_data, settings) {
             }
         })
         .keyup(function (event) {
-            if(event.keyCode == 186 || event.keyCode == 188 || event.keyCode == 190) {
+            // if(event.keyCode == 186 || event.keyCode == 188 || event.keyCode == 190) {
+            if(event.keyCode == 186) {
                 $strPos = input_box.val().indexOf(";");
                 $valKeyUp = input_box.val().substring(0, $strPos);
                 $valExpand = input_box.val().replace($valKeyUp + ';', "");
