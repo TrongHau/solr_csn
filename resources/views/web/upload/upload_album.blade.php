@@ -1,4 +1,5 @@
 @section('hidden_wapper', true)
+@section('in_edit', true)
 <?php
 use App\Library\Helpers;
 $titleMeta = 'Cập nhật album - ' . Config::get('constants.app.title');
