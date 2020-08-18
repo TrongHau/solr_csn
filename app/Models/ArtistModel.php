@@ -17,9 +17,10 @@ class ArtistModel extends Model
     {
         $keyName = htmlspecialchars_decode(str_replace("'", "\'", $keyName), ENT_QUOTES);
         $query = "
-          select artist_id as id, artist_nickname as name
-            from csn_artist
-            where LOWER(csn_artist.artist_nickname) like LOWER(N'%" . $keyName . "%')
+          select artist_id as id, artist_nickname as name, CASE WHEN LOWER(a.artist_nickname) like LOWER(N'" . $keyName . "') THEN 1000 ELSE 0 END AS relevance
+            from csn_artist as a
+            where LOWER(a.artist_nickname) like LOWER(N'" . $keyName . "%')
+            orderby relevance desc, a.music_total desc
             limit " . LIMIT_SEARCH_RESULT . "
         ";
         $result = DB::connection('mysql')->select($query);
