@@ -510,7 +510,6 @@ class UploadController extends Controller
             $result->cat_id = $request->input('cat_id') ?? 0;
             $result->cat_level = $request->input('cat_level') ?? 0;
             $result->cat_sublevel = $request->input('cat_sublevel') ?? 0;
-            $result->cat_custom = $request->input('cat_custom') ?? 0;
             $result->music_lyric = $request->input('music_lyric') ?? '';
             $result->music_source_url = $request->input('music_source_url') ?? '';
             $result->music_note = $request->input('music_note') ?? '';
@@ -593,7 +592,6 @@ class UploadController extends Controller
                 'cat_id' => $request->input('cat_id'),
                 'cat_level' => $request->input('cat_level') ?? 0,
                 'cat_sublevel' => $request->input('cat_sublevel') ?? 0,
-                'cat_custom' => $request->input('cat_custom') ?? 0,
                 'music_lyric' => $request->input('music_lyric') ?? '',
                 'music_note' => $request->input('music_note') ?? '',
                 'music_filesize' => $request->input('music_filesize') ?? 0,
@@ -827,7 +825,6 @@ class UploadController extends Controller
             'cat_id' => $request->input('cat_id') ?? 0,
             'cat_level' => $request->input('cat_level') ?? 0,
             'cat_sublevel' => $request->input('cat_sublevel') ?? 0,
-            'cat_custom' => $request->input('cat_custom') ?? 0,
             'music_lyric' => '',
             'music_last_update_time' => time(),
             'music_note' => $request->input('music_note') ?? '',
@@ -855,9 +852,9 @@ class UploadController extends Controller
         if(!$id)
             Helpers::ajaxResult(false, 'Không tìm thấy id', null);
         if($type == 'music') {
-            $result = $this->musicRepository->getModel()::where('music_id', $id)->select('cat_id', 'cat_level', 'cat_sublevel', 'cat_custom', 'music_title', 'music_composer', 'music_lyric')->first();
+            $result = $this->musicRepository->getModel()::where('music_id', $id)->select('cat_id', 'cat_level', 'cat_sublevel', 'music_title', 'music_composer', 'music_lyric')->first();
         }else {
-            $result = $this->videoRepository->getModel()::where('music_id', $id)->select('cat_id', 'cat_level', 'cat_sublevel', 'cat_custom', 'music_title', 'music_composer', 'music_lyric')->first();
+            $result = $this->videoRepository->getModel()::where('music_id', $id)->select('cat_id', 'cat_level', 'cat_sublevel', 'music_title', 'music_composer', 'music_lyric')->first();
         }
         if(!$result)
             Helpers::ajaxResult(false, 'Không tìm thấy nội dung', null);
