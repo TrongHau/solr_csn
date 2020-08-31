@@ -917,7 +917,7 @@ $perMission_Duyet_Sua_Nhac =  Auth::user()->hasPermission('duyet_sua_nhac');
                             q: request.term,
                             type: 'json',
                             rows: 10,
-                            <?php echo (!$perMission_Duyet_Sua_Nhac ? 'only_user: ' : Auth::user()->id . ',') ?>
+                            <?php echo (!$perMission_Duyet_Sua_Nhac ? 'only_user: ' . Auth::user()->id . ',' : '') ?>
                             view_album: true
                         },
                         success: function( data ) {
