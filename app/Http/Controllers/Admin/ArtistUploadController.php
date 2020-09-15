@@ -307,13 +307,12 @@ class ArtistUploadController extends CrudController
             Storage::disk('public')->move(Helpers::file_path($artistUpload->artist_id, CACHE_COVER_ARTIST_CROP_PATH, true).$artistUpload->artist_cover, Helpers::file_path($result->artist_id, COVER_ARTIST_CROP_PATH, true).$result->artist_cover);
         }
         //create thumb
-        $dir_Thumb = Storage::disk('public')->getAdapter()->getPathPrefix() . Helpers::file_path($artistUpload->artist_id, AVATAR_ARTIST_THUMB_CROP_PATH, true);
+        $dir_Thumb = Storage::disk('public')->getAdapter()->getPathPrefix() . Helpers::file_path($result->artist_id, AVATAR_ARTIST_THUMB_CROP_PATH, true);
 
         if (!file_exists($dir_Thumb)) {
             mkdir($dir_Thumb, 0777, true);
         }
         Helpers::createThumbnail(Storage::disk('public')->getAdapter()->getPathPrefix() . $dir_avatar . $result->artist_avatar, $dir_Thumb . $result->artist_avatar, 100, null);
-
         // update search solr
         $Solr = new SolrSyncController($this->Solr);
         $Solr->syncArtist(null, $result);
