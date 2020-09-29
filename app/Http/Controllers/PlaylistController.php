@@ -68,7 +68,7 @@ class PlaylistController extends Controller
             Helpers::ajaxResult(false, 'Tên playlist mới ít nhất 2 và nhỏ hơn 100 ký tư.', null);
         }
         if($this->playlistRepository->getModel()::where([['user_id', Auth::user()->id], ['playlist_title', $request->input('playlist_title')]])->first()){
-            return new JsonResponse(['message' => 'Fail', 'code' => 400, 'data' => [], 'error' => 'Tên playlist bị trùng'], 400);
+            Helpers::ajaxResult(false, 'Tên playlist bị trùng', null);
         }
         $result = $this->playlistRepository->create([
             'user_id' => Auth::user()->id,
