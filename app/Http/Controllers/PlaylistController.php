@@ -148,7 +148,7 @@ class PlaylistController extends Controller
     }
     public function editPlaylist(Request $request, $id) {
 //        $playlistUser = $this->playlistRepository->getByUser(Auth::user()->id, $id)->with('playlist_arr_ids')->first();
-        $playlistUser = $this->playlistRepository->getByUser(Auth::user()->id, $id)->with('music')->first();
+        $playlistUser = $this->playlistRepository->getByUser(Auth::user()->id, $id)->first();
         if(!$playlistUser) {
             return view('errors.404');
         }
