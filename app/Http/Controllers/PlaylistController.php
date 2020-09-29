@@ -176,12 +176,15 @@ class PlaylistController extends Controller
         }
         $id = $request->input('playlist_id');
         $action = $request->input('sumbit_action');
-        $playlistData = [];
         if($action == 'edit') {
-            $playlist = PlaylistModel::where([['playlist_id', $id], ['user_id', Auth::user()->id]]);
-            $playlistData = $playlist->first();
+            $playlist = PlaylistModel::where([['playlist_id', $id], ['user_id', Auth::user()->id]])->first();
             if(!$playlist->exists()) {
                 return view('errors.404');
+            }
+            if($playlist->playlist_title != $request->input('playlist_title')) {
+                if(PlaylistModel::where([['playlist_title', $request->input('playlist_title')], ['user_id', Auth::user()->id], ['playlist_id', '!=', $playlist->playlist_id]])->first()) {
+                    abort(403, 'Tên playlist bị trùng trong danh sách của bạn.');
+                }
             }
         }else{
             $playlist = new PlaylistModel();
@@ -195,14 +198,13 @@ class PlaylistController extends Controller
         ];
         // remove music, update count
         if($request->input('remove_music')) {
-            $arrMusic = explode(',', substr($request->input('remove_music'), 1));
-            $countRemove = PlaylistMusicModel::where('playlist_id', $id)->whereIn('music_id', $arrMusic)->delete();
-            $update['playlist_music_total'] = $playlist->first()->playlist_music_total - $countRemove;
-            $removeArtist = str_replace(';', ',', substr($request->input('remove_artist'), 1));
-            $removeArtistId = str_replace(';', ',', substr($request->input('remove_artist_id'), 1));
-            $artistRemove = explode(',', $removeArtist);
-            $artistIdRemove = explode(',', $removeArtistId);
-            $artistOld = unserialize($playlistData->playlist_artist);
+            $arrMusic = array_filter(explode(',', $request->input('remove_music')));
+            $countRemove = PlaylistMusicModel::where('playlist_id', $id)->whereIn('music_id', $arrMusic);
+            $update['playlist_music_total'] = $playlist->playlist_music_total - $countRemove->count();
+            $countRemove->delete();
+            $artistRemove = array_filter(explode(',', $request->input('remove_artist')));
+            $artistIdRemove = array_filter(explode(',', $request->input('remove_artist_id')));
+            $artistOld = unserialize($playlist->playlist_artist);
             foreach ($artistIdRemove as $key => $val) {
                 $keyExits = $val == -1 ? urlencode($artistRemove[$key]): $val;
                 if(isset($artistOld[$keyExits])) {
