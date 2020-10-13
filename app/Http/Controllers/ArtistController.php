@@ -49,6 +49,7 @@ class ArtistController extends Controller
         }
         foreach ($result as $item) {
             $item->name = htmlspecialchars_decode($item->name, ENT_QUOTES);
+            $item->artist_avatar = $item->artist_avatar ? Helpers::file_path($item->id, AVATAR_ARTIST_THUMB_CROP_PATH) . $item->artist_avatar : '/imgs/no_avatar_thumb.jpg';
         }
         return response($result);
     }
