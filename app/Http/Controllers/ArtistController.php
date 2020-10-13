@@ -45,7 +45,7 @@ class ArtistController extends Controller
     public function getTermArtist(Request $request) {
         $result = array();
         if($request->input('term')) {
-            $result = ArtistModel::searchArtist($request->input('term'));
+            $result = ArtistModel::searchArtist($request->input('term'), $request->input('exception'));
         }
         foreach ($result as $item) {
             $item->name = htmlspecialchars_decode($item->name, ENT_QUOTES);

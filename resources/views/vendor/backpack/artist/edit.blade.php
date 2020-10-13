@@ -20,6 +20,8 @@ use App\Library\Helpers;
     <script type="text/javascript" src="{{URL::to('/')}}/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" type="text/css" href="{{URL::to('/')}}/css/croppie.css">
+    <link rel="stylesheet" type="text/css" href="{{env('APP_URL')}}/css/token-input.css">
+    <link rel="stylesheet" type="text/css" href="{{env('APP_URL')}}/css/token-input-facebook.css">
 @endsection
 
 @section('content')
@@ -75,12 +77,17 @@ use App\Library\Helpers;
 
                         <div class="form-group col-xs-9">
                             <label style="display: -webkit-box;">Cover</label>
-                            <img class="mr-3" style="width: 100%" id="artist_cover_uploaded" src="{{$fields['artist_cover']['value'] ? env('DATA_URL').Helpers::file_path($fields['id']['value'], COVER_ARTIST_CROP_PATH, true).$fields['artist_cover']['value'].'?time='.time() : '/imgs/avatar_default.png'}}" alt="">
+                            <img class="mr-3" style="{{$fields['artist_cover']['value'] ? 'width: 100%' : 'width: 50%'}}" id="artist_cover_uploaded" src="{{$fields['artist_cover']['value'] ? env('DATA_URL').Helpers::file_path($fields['id']['value'], COVER_ARTIST_CROP_PATH, true).$fields['artist_cover']['value'].'?time='.time() : '/imgs/avatar_default.png'}}" alt="">
                             <div class="media-body">
                                 <div class="form-group" style="margin-top: 10px;">
                                     <input type="file" class="form-control-file" name="choose_artist_cover" id="choose_artist_cover">
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group music_artist col-xs-9">
+                            <label for="music_artist">Ca sĩ cần nhập vào</label>
+                            <input type="text" class="form-control" name="music_artist_id" value="{{ old('music_artist_id') }}" id="music_artist_id">
+                            <input type="hidden" class="form-control" name="music_artist" value="{{ old('music_artist') }}" id="music_artist" placeholder="Nhập tên ca sĩ">
                         </div>
                     </div><!-- /.box-body -->
 
@@ -145,6 +152,7 @@ use App\Library\Helpers;
         </div>
     </div>
     <script type="text/javascript" src="{{URL::to('/')}}/js/croppie.js"></script>
+    <script type="text/javascript" src="{{URL::to('/')}}/js/jquery.tokeninput.js"></script>
     <script>
         $('input[name=artist_avatar]').parent().addClass('hidden');
         $('input[name=artist_cover]').parent().addClass('hidden');
@@ -246,6 +254,21 @@ use App\Library\Helpers;
                 })
             });
         });
+        $(document).ready(function() {
+            $("#music_artist_id").tokenInput("/dang-tai/ca-si/tim-kiem?exception=<?php echo $fields['id']['value'] ?>", {
+                theme: "facebook",
+                preventDuplicates: true,
+                setInputName: "#music_artist",
+                noResultsText: 'Không có tên ca sĩ',
+                tokenDelimiter: ';',
+                hintText: 'Nhập tên ca sĩ',
+                searchingText: 'Đang tìm ca sĩ',
+                prePopulate: [
 
+                ],
+                addFunction: function (){
+                }
+            });
+        });
     </script>
 @endpush

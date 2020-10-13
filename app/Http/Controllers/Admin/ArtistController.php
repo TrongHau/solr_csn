@@ -18,16 +18,23 @@ use Illuminate\Support\Facades\Auth;
 use App\Repositories\Artist\ArtistRepository;
 use App\Solr\Solarium;
 use App\Http\Controllers\Sync\SolrSyncController;
+use App\Repositories\Music\MusicEloquentRepository;
+use App\Repositories\Video\VideoEloquentRepository;
 
 class ArtistController extends CrudController
 {
     protected $artistRepository;
     protected $Solr;
+    protected $musicRepository;
+    protected $videoRepository;
 
-    public function __construct(ArtistRepository $artistRepository, Solarium $Solr)
+    public function __construct(ArtistRepository $artistRepository, Solarium $Solr, MusicEloquentRepository $musicRepository, VideoEloquentRepository $videoRepository)
     {
         $this->artistRepository = $artistRepository;
         $this->Solr = $Solr;
+        $this->musicRepository = $musicRepository;
+        $this->videoRepository = $videoRepository;
+
         $this->middleware(function ($request, $next)
         {
             $this->crud->denyAccess(['create']);
@@ -193,6 +200,41 @@ class ArtistController extends CrudController
 
     public function update(UpdateRequest $request)
     {
+        if($request->music_artist_id) {
+            $arr = explode(';', $request->music_artist_id);
+            $Solr = new SolrSyncController($this->Solr);
+            foreach ($arr as $item) {
+                if($item > 0) {
+                    $artist = $this->artistRepository->getModel()::where('artist_id', $item)->first();
+                    if($artist) {
+                        $musics = $this->Solr->search(['music_artist_id' => $artist->artist_id], 1, 2000, ['_version_' => 'desc']);
+                        foreach ($musics['data'] as $itemMusic) {
+                            $music_artist_id = str_replace($artist->artist_id, $request->artist_id, implode(';', $itemMusic->music_artist_id));
+                            $music_artist_array = str_replace($artist->artist_nickname, $request->artist_nickname, implode(';', $itemMusic->music_artist_array));
+                            $update = $this->musicRepository->getModel()::where('music_id', $itemMusic->music_id[0])->first();
+                            $update->music_artist_id = $music_artist_id;
+                            $update->music_artist = $music_artist_array;
+                            $update->save();
+                            $Solr->syncMusic(null, $update);
+                            $Solr->deleteCustom($itemMusic->id);
+                        }
+                        $videos = $this->Solr->search(['video_artist_id' => $artist->artist_id], 1, 2000, ['_version_' => 'desc']);
+                        foreach ($videos['data'] as $itemVideo) {
+                            $music_artist_id = str_replace($artist->artist_id, $request->artist_id, implode(';', $itemVideo->video_artist_id));
+                            $music_artist_array = str_replace($artist->artist_nickname, $request->artist_nickname, implode(';', $itemVideo->video_artist));
+                            $update = $this->videoRepository->getModel()::where('music_id', $itemVideo->music_id[0])->first();
+                            $update->music_artist_id = $music_artist_id;
+                            $update->music_artist = $music_artist_array;
+                            $update->save();
+                            $Solr->syncMusic(null, $update);
+                            $Solr->deleteCustom($itemVideo->id);
+                        }
+                        $artist->delete();
+                        $Solr->deleteCustom('artist_'.$artist->artist_id);
+                    }
+                }
+            }
+        }
         $this->crud->hasAccessOrFail('update');
         // fallback to global request instance
         if (is_null($request)) {
