@@ -84,11 +84,13 @@ use App\Library\Helpers;
                                 </div>
                             </div>
                         </div>
+                        @if(backpack_user()->can('merge_artist'))
                         <div class="form-group music_artist col-xs-9">
                             <label for="music_artist">Ca sĩ cần nhập vào</label>
                             <input type="text" class="form-control" name="music_artist_id" value="{{ old('music_artist_id') }}" id="music_artist_id">
                             <input type="hidden" class="form-control" name="music_artist" value="{{ old('music_artist') }}" id="music_artist" placeholder="Nhập tên ca sĩ">
                         </div>
+                        @endif
                     </div><!-- /.box-body -->
 
                     <div class="box-footer">
@@ -254,6 +256,7 @@ use App\Library\Helpers;
                 })
             });
         });
+        @if(backpack_user()->can('merge_artist'))
         $(document).ready(function() {
             $("#music_artist_id").tokenInput("/dang-tai/ca-si/tim-kiem?exception=<?php echo $fields['id']['value'] ?>", {
                 theme: "facebook",
@@ -270,5 +273,6 @@ use App\Library\Helpers;
                 }
             });
         });
+        @endif
     </script>
 @endpush

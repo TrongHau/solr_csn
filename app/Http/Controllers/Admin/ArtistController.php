@@ -200,7 +200,7 @@ class ArtistController extends CrudController
 
     public function update(UpdateRequest $request)
     {
-        if($request->music_artist_id) {
+        if($request->music_artist_id && backpack_user()->can('merge_artist')) {
             $arr = explode(';', $request->music_artist_id);
             $Solr = new SolrSyncController($this->Solr);
             foreach ($arr as $item) {
