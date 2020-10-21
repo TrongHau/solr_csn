@@ -76,11 +76,11 @@ define('PUBLIC_CACHE_AVATAR_ARTIST_PATH', '/storage/data/cache_artist/artist_ava
 define('PUBLIC_CACHE_COVER_ARTIST_PATH', '/storage/data/cache_artist/artist_cover/');
 
 // ALBUM
-define('AVATAR_ALBUM_CROP_PATH', '/data/album_cover/');
-define('AVATAR_ALBUM_THUMB_CROP_PATH', '/data/album_cover_thumb/');
-define('AVATAR_ALBUM_THUMB_200_CROP_PATH', '/data/album_cover_thumb_200/');
-define('COVER_ALBUM_SOURCE_PATH', '/data/source_album_cover/');
-define('PUBLIC_COVER_ALBUM_CROP_PATH', '/storage/data/album_cover/');
+define('AVATAR_ALBUM_CROP_PATH', '/data/cover/');
+define('AVATAR_ALBUM_THUMB_CROP_PATH', '/data/cover_thumb/');
+define('AVATAR_ALBUM_THUMB_200_CROP_PATH', '/data/cover_thumb_200/');
+define('COVER_ALBUM_SOURCE_PATH', '/data/source_cover/');
+define('PUBLIC_COVER_ALBUM_CROP_PATH', '/storage/data/cover/');
 
 
 define('PUBLIC_AVATAR_ARTIST_SOURCE_PATH', '/storage/data/source_artist_avatar/');
