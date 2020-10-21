@@ -29,8 +29,8 @@ define('LIMIT_HOME_ARTIST', 15);
 define('LIMIT_SEARCH_RESULT', 20);
 define('DEFAULT_ROOT_TEMP_MUSIC_PATH', '/storage/data/temp/');
 define('DEFAULT_STORAGE_TEMP_MUSIC_PATH', '/data/temp/');
-define('DEFAULT_ROOT_CACHE_MUSIC_PATH', '/storage/data/cache_upload/');
-define('DEFAULT_STORAGE_CACHE_MUSIC_PATH', '/data/cache_upload/');
+define('DEFAULT_ROOT_CACHE_MUSIC_PATH', '/storage/cache_upload/');
+define('DEFAULT_STORAGE_CACHE_MUSIC_PATH', '/cache_upload/');
 define('LYRIC_DETAIL_NEW_MUSIC', 5);
 define('LYRIC_DETAIL_NEW_ALBUM', 5);
 define('LIMIT_COMMENT', 10);
@@ -70,10 +70,10 @@ define('AVATAR_ARTIST_CROP_PATH', 'data/artist_avatar/');
 define('AVATAR_ARTIST_THUMB_CROP_PATH', '/data/artist_avatar_thumb/');
 define('AVATAR_ARTIST_THUMB_200_CROP_PATH', '/data/artist_avatar_thumb_200/');
 define('COVER_ARTIST_CROP_PATH', 'data/artist_cover/');
-define('CACHE_AVATAR_ARTIST_CROP_PATH', 'data/cache_artist/artist_avatar/');
-define('CACHE_COVER_ARTIST_CROP_PATH', '/data/cache_artist/artist_cover/');
-define('PUBLIC_CACHE_AVATAR_ARTIST_PATH', '/storage/data/cache_artist/artist_avatar/');
-define('PUBLIC_CACHE_COVER_ARTIST_PATH', '/storage/data/cache_artist/artist_cover/');
+define('CACHE_AVATAR_ARTIST_CROP_PATH', 'cache_artist/artist_avatar/');
+define('CACHE_COVER_ARTIST_CROP_PATH', '/cache_artist/artist_cover/');
+define('PUBLIC_CACHE_AVATAR_ARTIST_PATH', '/storage/cache_artist/artist_avatar/');
+define('PUBLIC_CACHE_COVER_ARTIST_PATH', '/storage/cache_artist/artist_cover/');
 
 // ALBUM
 define('AVATAR_ALBUM_CROP_PATH', '/data/cover/');
