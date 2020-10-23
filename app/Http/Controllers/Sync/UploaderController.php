@@ -89,7 +89,7 @@ $top_uploader_weeks = ' . var_export($top_uploader_weeks, true) . ';
                 Storage::disk('debugbar')->delete($item);
         }
         // clear all file source music
-        $files =  Storage::disk('public')->files(SOURCE_STORAGE_PATH);
+        $files =  Storage::disk('public')->allFiles(SOURCE_STORAGE_PATH);
         if($files) {
             foreach ($files as $item) {
                 $dir = Storage::disk('public')->getAdapter()->getPathPrefix();
