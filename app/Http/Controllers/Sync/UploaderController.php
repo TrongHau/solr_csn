@@ -88,6 +88,17 @@ $top_uploader_weeks = ' . var_export($top_uploader_weeks, true) . ';
             if($item != '.gitignore')
                 Storage::disk('debugbar')->delete($item);
         }
+        // clear all file source music
+        $files =  Storage::disk('public')->files(SOURCE_STORAGE_PATH);
+        if($files) {
+            foreach ($files as $item) {
+                $dir = Storage::disk('public')->getAdapter()->getPathPrefix();
+                $fileTime = filemtime($dir.$item);
+                if(time() - $fileTime >= TIMESPAN_TWO_DAY) {
+                    Storage::delete('public' . '/' . $item);
+                }
+            }
+        }
         return response(['Ok']);
     }
 }
