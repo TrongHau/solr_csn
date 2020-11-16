@@ -383,17 +383,22 @@ $titleMeta = 'Cập nhật album - ' . Config::get('constants.app.title');
             };
             Dropzone.prototype.defaultOptions.callResponseSuccess = function(result, previewTemplate) {
                 previewTemplate.querySelectorAll(".file_name_dropzone")[0].value = result.file_name;
+                previewTemplate.querySelectorAll(".file_size_dropzone")[0].value = result.file_size;
                 if(result.success === true) {
                     var oldFileDrops = $('.drop_files').val();
                     var oldFileSize = $('.music_filesize').val();
                     var orderFileName = '';
+                    var orderFileSize = '';
                     $( ".file_name_dropzone").each(function( index, input ) {
                         orderFileName = orderFileName + ';' + input.value;
                     });
+                    $( ".file_size_dropzone").each(function( index, input ) {
+                        orderFileSize = orderFileSize + ';' + input.value;
+                    });
                     $('.drop_files').val(orderFileName.substring(1));
+                    $('.music_filesize').val(orderFileSize.substring(1));
                     // $('.drop_files').val(oldFileDrops ? oldFileDrops + ';' + result.file_name : result.file_name);
-
-                    $('.music_filesize').val(oldFileSize ? oldFileSize + ';' + result.file_size : result.file_size);
+                    // $('.music_filesize').val(oldFileSize ? oldFileSize + ';' + result.file_size : result.file_size);
                     $('.dz-message').remove();
                     $('.lossless').val($('.lossless').val() > result.lossless ? $('.lossless').val() : result.lossless);
                     $('.drop_html').val($('.dropzone').html());

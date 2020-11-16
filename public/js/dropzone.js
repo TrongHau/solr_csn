@@ -702,6 +702,7 @@ var Dropzone = function (_Emitter) {
         previewTemplate: "<div class=\"media\">\n" +
             "                                    <img class=\"mr-3 align-self-center\" src=\"/imgs/document.png\" alt=\"\">\n" +
             "                                    <input hidden class=\"file_name_dropzone\" value=''>\n" +
+            "                                    <input hidden class=\"file_size_dropzone\" value=''>\n" +
             "                                    <div class=\"media-body align-self-center\">\n" +
             "                                        <div class=\"d-flex align-items-center justify-content-between mb-1\">\n" +
             "                                            <h4 class=\"media-title\"><a href=\"#\" data-dz-name title=\"\"></a> <small data-dz-size class=\"text-danger\"></small> <small data-progress-present class=\"text-danger data-progress-present\" style=\" color: #8c959a!important;\">0%</small></h4>\n" +
