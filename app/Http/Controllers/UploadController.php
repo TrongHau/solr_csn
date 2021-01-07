@@ -584,7 +584,7 @@ class UploadController extends Controller
                 'music_artist' => $request->input('music_artist'),
                 'music_artist_id' => $request->input('music_artist_id'),
                 'music_user_id' => $user->id,
-                'music_username' => $user->name,
+                'music_username' => $user->username,
                 'music_production' => $request->input('music_production') ?? '',
                 'music_composer' => $request->input('music_composer') ?? '',
                 'music_album_id' => $request->input('music_album_id') ?? '',
