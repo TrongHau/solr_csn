@@ -12,8 +12,6 @@
                                     echo $message ?? 'Bạn không có quyền truy cập, thoát ra ngay :(('
                                 ?>
                             </span></h2>
-                        <h4 class="text-danger">Vui lòng liên hệ CSN để được hỗ trợ</h4>
-                        <h4 class="text-danger">403</h4>
                     </div>
                 </div>
             </div>
