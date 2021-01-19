@@ -71,8 +71,6 @@ class UploadController extends Controller
         $this->playlistMusicRepository = $playlistMusicRepository;
         $this->musicFavouriteRepository = $musicFavouriteRepository;
         $this->Solr = $Solr;
-        abort(403, 'Chức năng tải nhạc đang tạm ngưng hoạt động để BQT CSN rà soát lại các bài hát cũ theo quy định của pháp luật.
-Mong các bạn thông cảm và quay lại sau.');
         $this->middleware(function ($request, $next)
         {
             if(backpack_user()->can('banned_user_upload')){
@@ -121,6 +119,9 @@ Mong các bạn thông cảm và quay lại sau.');
                         ->orWhere('date_expirted', '>', time());
                 })->first();
             $userMusic = $this->userExpRepository->getModel()::whereIn('user_id', [$music->music_user_id, $music->music_last_update_by])->orderByRaw( "FIELD(user_id, ".$music->music_user_id.", ".$music->music_last_update_by.")" )->get();
+        }else{
+            abort(403, 'Chức năng tải nhạc đang tạm ngưng hoạt động để BQT CSN rà soát lại các bài hát cũ theo quy định của pháp luật.
+Mong các bạn thông cảm và quay lại sau.');
         }
         return view('upload.upload_music', compact('typeUpload', 'music', 'album', 'userMusic', 'uploadExp'));
     }
@@ -155,6 +156,9 @@ Mong các bạn thông cảm và quay lại sau.');
                         ->orWhere('date_expirted', '>', time());
                 })->first();
             $userMusic = $this->userExpRepository->getModel()::whereIn('user_id', [$music->music_user_id, $music->music_last_update_by])->orderByRaw( "FIELD(user_id, ".$music->music_user_id.", ".$music->music_last_update_by.")" )->get();
+        }else{
+            abort(403, 'Chức năng tải nhạc đang tạm ngưng hoạt động để BQT CSN rà soát lại các bài hát cũ theo quy định của pháp luật.
+Mong các bạn thông cảm và quay lại sau.');
         }
         return view('upload.upload_music', compact('typeUpload', 'music', 'album', 'userMusic', 'uploadExp'));
     }
@@ -167,6 +171,9 @@ Mong các bạn thông cảm và quay lại sau.');
             }
             if(!$album)
                 return view('errors.404');
+        }else{
+            abort(403, 'Chức năng tải nhạc đang tạm ngưng hoạt động để BQT CSN rà soát lại các bài hát cũ theo quy định của pháp luật.
+Mong các bạn thông cảm và quay lại sau.');
         }
         return view('upload.upload_album', compact('album'));
     }
