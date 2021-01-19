@@ -71,7 +71,7 @@ class UploadController extends Controller
         $this->playlistMusicRepository = $playlistMusicRepository;
         $this->musicFavouriteRepository = $musicFavouriteRepository;
         $this->Solr = $Solr;
-        abort(401, 'Chức năng tải nhạc đang tạm ngưng hoạt động để BQT CSN rà soát lại các bài hát cũ theo quy định của pháp luật.
+        abort(403, 'Chức năng tải nhạc đang tạm ngưng hoạt động để BQT CSN rà soát lại các bài hát cũ theo quy định của pháp luật.
 Mong các bạn thông cảm và quay lại sau.');
         $this->middleware(function ($request, $next)
         {
