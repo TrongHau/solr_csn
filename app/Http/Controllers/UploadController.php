@@ -120,8 +120,7 @@ class UploadController extends Controller
                 })->first();
             $userMusic = $this->userExpRepository->getModel()::whereIn('user_id', [$music->music_user_id, $music->music_last_update_by])->orderByRaw( "FIELD(user_id, ".$music->music_user_id.", ".$music->music_last_update_by.")" )->get();
         }else{
-            abort(403, 'Chức năng tải nhạc đang tạm ngưng hoạt động để BQT CSN rà soát lại các bài hát cũ theo quy định của pháp luật.
-Mong các bạn thông cảm và quay lại sau.');
+           
         }
         return view('upload.upload_music', compact('typeUpload', 'music', 'album', 'userMusic', 'uploadExp'));
     }
@@ -157,8 +156,7 @@ Mong các bạn thông cảm và quay lại sau.');
                 })->first();
             $userMusic = $this->userExpRepository->getModel()::whereIn('user_id', [$music->music_user_id, $music->music_last_update_by])->orderByRaw( "FIELD(user_id, ".$music->music_user_id.", ".$music->music_last_update_by.")" )->get();
         }else{
-            abort(403, 'Chức năng tải nhạc đang tạm ngưng hoạt động để BQT CSN rà soát lại các bài hát cũ theo quy định của pháp luật.
-Mong các bạn thông cảm và quay lại sau.');
+
         }
         return view('upload.upload_music', compact('typeUpload', 'music', 'album', 'userMusic', 'uploadExp'));
     }
@@ -172,8 +170,7 @@ Mong các bạn thông cảm và quay lại sau.');
             if(!$album)
                 return view('errors.404');
         }else{
-            abort(403, 'Chức năng tải nhạc đang tạm ngưng hoạt động để BQT CSN rà soát lại các bài hát cũ theo quy định của pháp luật.
-Mong các bạn thông cảm và quay lại sau.');
+
         }
         return view('upload.upload_album', compact('album'));
     }
